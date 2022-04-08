@@ -1,0 +1,22 @@
+<div class="container mb-3">
+    <div class="container rounded bg-light" >
+        <h2 class=" pt-3">Proyectos</h2>
+        <div class="row">
+
+            <div class="col" *ngFor="let item of proj">
+              <div class=" my-4 row g-0 rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative bg-dark">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <h3 class="mb-0 text-primary">{{item.titulo}}</h3>
+                  <div class="mb-1 text-muted">{{item.fecha}}</div>
+                  <p class="card-text text-light mb-auto">{{item.descripcion}}</p>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                  <img class="img-fluid p-2" src={{item.img}} alt="">
+        
+                </div>
+              </div>
+            </div>            
+
+        </div>
+    </div>
+</div>

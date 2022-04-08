@@ -1,0 +1,21 @@
+div{
+    text-align: center;
+}
+
+#main_con{
+    margin: 0 10px 0 10px;
+}
+#nom{
+    margin-top: 15px;
+}
+
+@media(max-width: 575px) {
+    #perfil{
+        width: 50%;
+    }
+    #transparente{
+        width: 55%;
+        border: 20px;
+    }
+    
+}
