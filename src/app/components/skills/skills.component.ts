@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
+import { JsonService } from 'src/app/services/json.service'; 
 
 @Component({
   selector: 'app-skills',
@@ -8,10 +9,12 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class SkillsComponent implements OnInit {
   skills: any [] = [];
-  value = 85;
+  url: string = 'http://localhost:3000/skills';
 
-  constructor(private _service:CommonService) { 
-    this.skills = _service.traerSkills()
+  constructor(public json: JsonService){
+    this.json.getJson(this.url).subscribe((res:any)=>{
+      this.skills = res
+    })
   }
 
   ngOnInit(): void {
