@@ -13,8 +13,8 @@ import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-
-import { CommonService } from './services/common.service';
+import { FormsModule } from '@angular/forms';
+import { EduComponent } from './components/edu/edu.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +24,7 @@ import { CommonService } from './services/common.service';
     AcercaDeComponent,
     SkillsComponent,
     ExpComponent,
+    EduComponent,
     ProyectosComponent,
     FooterComponent
   ],
@@ -32,6 +33,7 @@ import { CommonService } from './services/common.service';
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
+    FormsModule,
     NgCircleProgressModule.forRoot({
       "backgroundGradientStopColor": "#faf200",
       "backgroundOpacity": 1,
@@ -51,7 +53,7 @@ import { CommonService } from './services/common.service';
       "showBackground": false
     })
   ],
-  providers: [CommonService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

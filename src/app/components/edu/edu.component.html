@@ -6,40 +6,38 @@
     <div>
       <button class="btn btn-outline-dark mx-3 my-3"(click)="onAdd()" *ngIf="adminSesion">Crear Nuevo</button>
       <div class="text-center my-3" *ngIf="adminSesion && addMode || editMode">
-        <label for="titulo">Empresa</label><br>
-        <input type="text" name="titulo" id="titulo" placeholder="Nombre empresa" [(ngModel)]="lugar"><br>
-        <label for="titulo">Puesto</label><br>
-        <input type="text" name="titulo" id="titulo" placeholder="Puesto de Trabajo" [(ngModel)]="puesto"><br>
+        <label for="titulo">Institucion</label><br>
+        <input type="text" name="titulo" id="titulo" placeholder="Nombre institucion" [(ngModel)]="lugar"><br>
+        <label for="titulo">Titulo</label><br>
+        <input type="text" name="titulo" id="titulo" placeholder="Titulo Adquirido" [(ngModel)]="titulo"><br>
         <label for="titulo">Descripción</label><br>
         <input type="text" name="titulo" id="titulo" placeholder="Descripción" [(ngModel)]="descripcion"><br>
-        <br>
         <div>
-        <label for="logo">Logo</label>
+          <label for="logo">Logo</label>
         <input type="checkbox" name="logo" id="logo" placeholder="Descripción" [(ngModel)]="imgBool">
         <p *ngIf="imgBool">URL:</p>
         <input type="text" name="img" id="img" placeholder="Descripción" *ngIf="imgBool" [(ngModel)]="img">
         <br>
         </div>
-        <label for="titulo">fecha</label><br>
+        <label for="fecha">fecha</label><br>
         <input type="text" name="titulo" id="titulo" placeholder="" [(ngModel)]="startDate">
         <label for="--">--</label>
         <input type="text" name="titulo" id="titulo" placeholder="" [(ngModel)]="endDate"><br>
+
         <button class="btn btn-outline-dark mx-3 my-3"(click)="saveAdd()" *ngIf="addMode && !editMode">guardar Nuevo</button>
         <button class="btn btn-outline-dark mx-3 my-3"(click)="saveEdit()" *ngIf="!addMode && editMode">guardar Edit</button>
-
         <button class="btn btn-outline-dark mx-3 my-3" (click)="cancel()">cancelar</button>
       </div>
-
     </div>
     
 
-    <h3 class=" pb-2 mb-0">Experiencia</h3>
+    <h3 class=" pb-2 mb-0">Educación</h3>
 
-    <div class="d-flex p-3 border-bottom" *ngFor="let item of exp">
+    <div class="d-flex p-3 border-bottom" *ngFor="let item of edu">
       <img class=" my-auto me-3 rounded" width="50px" height="50px" [src]="item.img" >
       <div class=" small lh-sm">
         <strong class="d-block text-gray-dark fs-5">{{item.lugar}}</strong>
-        <strong class="d-block text-gray-dark">{{item.puesto}} ({{item.startDate}} -- {{item.endDate}})</strong>
+        <strong class="d-block text-gray-dark">{{item.titulo}} ({{item.startDate}} -- {{item.endDate}})</strong>
         <p text="muted" class="d-block text-gray-dark">{{item.descripcion}}</p>
         <button  class="btn btn-outline-dark" (click)="onDelete(item)" *ngIf="adminSesion">Borrar</button>
         <button class="btn btn-outline-dark" (click)="onEdit(item)" *ngIf="adminSesion">Editar</button>

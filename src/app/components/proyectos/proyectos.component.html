@@ -1,9 +1,33 @@
 <div class="container mb-3">
     <div class="container rounded bg-light" >
+
+      <div>
+        <button class="btn btn-outline-dark mx-3 my-3"(click)="onAdd()" *ngIf="adminSesion">Crear Nuevo</button>
+        <div class="text-center my-3" *ngIf="adminSesion && addMode || editMode">
+          <label for="titulo">Proyecto</label><br>
+          <input type="text" name="titulo" id="titulo" placeholder="Nombre proyecto" [(ngModel)]="titulo"><br>
+          <label for="titulo">Fecha</label><br>
+          <input type="text" name="titulo" id="titulo" placeholder="fecha de Trabajo" [(ngModel)]="fecha"><br>
+          <label for="titulo">Descripción</label><br>
+          <input type="text" name="titulo" id="titulo" placeholder="Descripción" [(ngModel)]="descripcion"><br>
+          <br>
+          <div>
+          <label for="logo">Imagen</label>
+          <input type="text" name="img" id="img" placeholder="Descripción" [(ngModel)]="img">
+          <br>
+          </div>
+          <button class="btn btn-outline-dark mx-3 my-3"(click)="saveAdd()" *ngIf="addMode && !editMode">Guardar</button>
+          <button class="btn btn-outline-dark mx-3 my-3"(click)="saveEdit()" *ngIf="!addMode && editMode">Guardar Cambios</button>
+  
+          <button class="btn btn-outline-dark mx-3 my-3" (click)="cancel()">cancelar</button>
+        </div>
+  
+      </div>
+
         <h2 class=" pt-3">Proyectos</h2>
         <div class="row">
 
-            <div class="col" *ngFor="let item of proj">
+            <div class="col-6" *ngFor="let item of proj">
               <div class=" my-4 row g-0 rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative bg-dark">
                 <div class="col p-4 d-flex flex-column position-static">
                   <h3 class="mb-0 text-primary">{{item.titulo}}</h3>
@@ -12,8 +36,10 @@
                 </div>
                 <div class="col-auto d-none d-lg-block">
                   <img class="img-fluid p-2" src={{item.img}} alt="">
-        
                 </div>
+                <button  class="btn btn-outline-light" (click)="onDelete(item)" *ngIf="adminSesion">Borrar</button>
+                <button class="btn btn-outline-light" (click)="onEdit(item)" *ngIf="adminSesion">Editar</button>
+
               </div>
             </div>            
 

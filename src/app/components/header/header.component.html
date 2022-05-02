@@ -1,16 +1,16 @@
 <div class="container-fluid" id="nav_con">
 <header class="d-flex flex-wrap justify-content-center rounded-bottom" >
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto">
-      <img src="../../../assets/APLogo.png" class="bi me-2" id="logoAP">
+    <a [href]="logo.link" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto" *ngFor="let logo of logos">
+      <img [src]="logo.img" [alt]="logo.title" class="bi me-2 logoI" [id]="logo.title">
     </a>
 
     <ul class="nav nav-pills align-items-center ps-5">
-        <li class="nav-item"><a href="#" class="nav-link"><img src="../../../assets/github.png" alt="" id="gihub" class="icon"></a></li>
-        <li class="nav-item"><a href="#" class="nav-link"><img src="../../../assets/facebook.png" alt="" id="facebook" class="icon"></a></li>
-        <li class="nav-item"><a href="#" class="nav-link"><img src="../../../assets/twitter.png" alt="" id="twitter" class="icon"></a></li>
-        <li class="nav-item"><a href="#" class="nav-link"><img src="../../../assets/instagram.png" alt="" id="instagram" class="icon"></a></li>
-        <li class="nav-item"><a href="#" class="nav-link"><img src="../../../assets/linkedin.png" alt="" id="linkedin" class="icon"></a></li>
-        <li class="nav-item"><button class="btn btn-outline-light"><b>LogIn</b></button></li>
+      <li class="nav-item" *ngFor="let item of redes">
+        <a [href]="item.link" class="nav-link">
+          <img [src]="item.img" [alt]="item.title" [id]="item.title" class="icon">
+        </a>
+      </li>
+      <li class="nav-item"><button class="btn btn-outline-light" (click)="toggleEditMode()"><b>LogIn</b></button></li>
     </ul>
 </header>  
 </div>

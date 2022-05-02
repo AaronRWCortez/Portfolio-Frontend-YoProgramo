@@ -1,8 +1,45 @@
 <div class="container">
 <div class="my-3 p-3 bg-body rounded shadow-sm">
     <h1>Hard & Soft Skills</h1>
-    <div class="row">
-      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 img-fluid text-center" *ngFor="let item of skills">
+    <button class="btn btn-outline-dark" (click)="onAdd()" *ngIf="adminSesion">Nuevo Skill</button>
+    <div *ngIf="addMode||editMode">
+
+    <div class="row border text-center my-3">
+        <div class="col-sm-12 col-md-6 text-center my-3">
+          <label for="titulo">Titulo</label>
+          <input type="text" name="titulo" id="titulo" placeholder="insertar titulo" [(ngModel)]="titulo">
+        </div>
+      
+        <div class="col-sm-12 col-md-6 text-center my-3">
+          <label for="percent">Porcentaje</label>
+          <input type="number" name="percent" id="percent" placeholder="Porcentaje" [(ngModel)]="percent">
+        </div> 
+      
+        <div class="col-6 text-center mb-3">
+          <label for="color">Color 1</label>
+          <input type="color" [(ngModel)]="color">
+        </div>  
+        <div class="col-6 text-center">
+          <label for="colorGr">Color 2</label>
+          <input type="color" [(ngModel)]="colorGr">
+        </div>
+        <div class="col-sm-12 text-center mb-3">
+          <label for="img">Imagen</label>
+          <input type="text" [(ngModel)]="img">
+      </div> 
+      <div>
+        <button class="col-6 text-center mb-3 btn btn-outline-dark" 
+                (click)="saveAdd()" *ngIf="addMode && !editMode">Añadir</button>
+        <button class="col-6 text-center mb-3 btn btn-outline-dark" 
+                (click)="saveEdit()" *ngIf="editMode && !addMode">Guardar Cambios</button>  
+        <button class="col-6 text-center mb-3 btn btn-outline-dark" 
+                (click)="cancel()" *ngIf="editMode || addMode">Cancelar</button>
+      </div>
+    </div>
+    
+    </div >
+    <div class="row my-3">
+      <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2 img-fluid text-center" *ngFor="let item of skills">
       <div title = {{item.titulo}}>
       <circle-progress
       [percent] ="item.percent"
@@ -13,6 +50,8 @@
       [imageWidth] = "item.customW"
       ></circle-progress>
       <h4 class="text-center"><b>{{item.percent}}%</b></h4> 
+      <button  class="btn btn-outline-dark" (click)="onDelete(item)" *ngIf="adminSesion">Borrar</button>
+      <button class="btn btn-outline-dark" (click)="onEdit(item)" *ngIf="adminSesion">Editar</button>
       </div>
       
       </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from 'src/app/services/common.service';
+import { JsonService } from 'src/app/services/json.service';
 
 @Component({
   selector: 'app-acerca-de',
@@ -7,17 +7,18 @@ import { CommonService } from 'src/app/services/common.service';
   styleUrls: ['./acerca-de.component.css']
 })
 export class AcercaDeComponent implements OnInit {
-  about:any;
-  
-
-  constructor(private _servicio : CommonService) {
-    this.about = _servicio.traerAbout()
-   }
+  data:any;
+  url: string = 'http://localhost:3000/info';
+  constructor(private json: JsonService) { }
 
   ngOnInit(): void {
+    this.dataLoad()
   }
-  MasInfo(){
-    
+
+  dataLoad(){
+    this.json.getJson(this.url).subscribe((res:any)=>{
+      this.data = res
+    })
   }
 
 

@@ -1,92 +1,156 @@
+{
+  "logos": [
     {
-        "about" : {
-            "nombres": "Aaron Ramiro Waldemar",
-            "apellidos": "Cortez",
-            "titulo": "Full Stack Developer Jr",
-            "lugar": "Cordoba(Argentina)",
-            "descripcion": "Tengo 19 años y estudio programacion, me gusta dibujar y me interesa el desarrollo de videojuegos."
-        
-        },
-        "exp" : [
-          { "lugar": "Mis Soles",
-            "puesto": "Diseñador Grafico",
-            "startDate":  2015,
-            "endDate": "actualidad",
-            "descripcion": "Diseño y digitalización de logos para eventos y agrupaciones."
-          },
-            { "lugar" : "Pasteleria LiLu",
-            "puesto": "Ayudante de pasteleria",
-            "startDate":  2019,
-            "endDate": "actualidad",
-            "descripcion": "Auxiliar de pastelero y envasado de productos."
-          }
-        ],
-        "edu" : [
-          { "lugar" : "Argentina Programa (#SeProgramar - #YoProgramo)",
-            "titulo": "Full Stack Developer Jr",
-            "startDate":  2021,
-            "endDate": 2022,
-            "descripcion": "",
-            "img": "../../../assets/APicon.png"
-          },
-          { "lugar" : "IPEA y M 224 Leopoldo Lugones",
-            "titulo": "Bachiller en Ciencias Naturales",
-            "startDate":  "2014",
-            "endDate": "2020",
-            "descripcion": "",
-            "img": "../../../assets/APicon.png"
-          }
-        ],
-        "proj" : [
-          { "titulo": "Portafolio Web",
-            "fecha": 2022,
-            "descripcion": "Proyecto final integrador de Argentina Programa",
-            "img": "../../../assets/portPrj.png"
-          },
-          { "titulo": "Placeholder",
-            "fecha": 2022,
-            "descripcion": "descripcion Placeholder",
-            "img":"../../../assets/portPrj.png"
-          }
-        ],
-        "skills" : [
-          { "titulo": "HTML",
-            "percent": "90",
-            "color": "#ff3300",
-            "colorGr":"#ff9500",
-            "img": "../assets/HTML5.svg"
-          },
-          { "titulo": "CSS",
-            "percent": "85",
-            "color": "#144ac8",
-            "colorGr":"#00d5ff",
-            "img": "../assets/CSS3.svg"
-          },
-          { "titulo": "JavaScript",
-            "percent": "70",
-            "color": "#ffea00",
-            "colorGr":"#ffae52",
-            "img": "../assets/JS.svg",
-            "customW": 70,
-            "customH":70
-          },
-          { "titulo": "Ingles",
-            "percent": "50",
-            "color": "#144ac8",
-            "colorGr":"#00d5ff",
-            "img": "../assets/ingles.png"
-          },
-          { "titulo": "PlaceHolder",
-            "percent": "95",
-            "color": "#242424",
-            "colorGr":"#7a7a7a",
-            "img": "../assets/PH.png"
-          },
-          { "titulo": "PlaceHolder",
-            "percent": "95",
-            "color": "#242424",
-            "colorGr":"#7a7a7a",
-            "img": "../assets/PH.png"
-          }
-        ]
+      "title": "Argentina Programa",
+      "img": "../../../assets/images/APLogo.png",
+      "link": "/",
+      "id": 0
     }
+  ],
+  "redes": [
+    {
+      "title": "github",
+      "img": "../../../assets/images/github.png",
+      "link": "#"
+    },
+    {
+      "title": "facebook",
+      "img": "../../../assets/images/facebook.png",
+      "link": "#"
+    },
+    {
+      "title": "facebook",
+      "img": "../../../assets/images/twitter.png",
+      "link": "#"
+    },
+    {
+      "title": "facebook",
+      "img": "../../../assets/images/instagram.png",
+      "link": "#"
+    },
+    {
+      "title": "facebook",
+      "img": "../../../assets/images/linkedin.png",
+      "link": "#"
+    }
+  ],
+  "info": [
+    {
+      "nombre": "Aaron Ramiro Waldemar",
+      "apellido": "Cortez",
+      "titulo": "Full Stack Developer Jr",
+      "lugar": "Cordoba(Argentina)",
+      "descripcion": "Tengo 19 años y estudio programacion, me gusta dibujar y me interesa el desarrollo de videojuegos.",
+      "img": "../../../assets/images/foto Perfil.jpg",
+      "placeHolder": "../../../assets/images/placeholder.png"
+    }
+  ],
+  "exp": [
+    {
+      "lugar": "Mis Soles",
+      "puesto": "Diseñador Grafico",
+      "startDate": 2015,
+      "endDate": "Actualidad",
+      "descripcion": "Diseño y digitalización de logos para eventos y agrupaciones.",
+      "img": "../../../assets/images/APicon.png",
+      "id": 0
+    },
+    {
+      "lugar": "Pasteleria LiLu",
+      "puesto": "Ayudante de pasteleria",
+      "startDate": 2019,
+      "endDate": "Actualidad",
+      "descripcion": "Auxiliar de pastelero y envasado de productos.",
+      "img": "../../../assets/images/APicon.png",
+      "id": 1
+    }
+  ],
+  "edu": [
+    {
+      "lugar": "Argentina Programa (#SeProgramar - #YoProgramo)",
+      "titulo": "Desarrollador web full stack junior",
+      "startDate": "2021",
+      "endDate": "2022",
+      "descripcion": "",
+      "img": "../../../assets/images/APicon.png",
+      "id": 0
+    },
+    {
+      "lugar": "IPEA y M 224 Leopoldo Lugones",
+      "titulo": "Bachiller en Ciencias Naturales",
+      "startDate": "2014",
+      "endDate": "2020",
+      "descripcion": "",
+      "img": "../../../assets/images/APicon.png",
+      "id": 1
+    }
+  ],
+  "proj": [
+    {
+      "titulo": "Portafolio Web",
+      "fecha": 2022,
+      "descripcion": "Proyecto final integrador de Argentina Programa #YoProgramo",
+      "img": "../../../assets/images/portPrj.png",
+      "id": 0
+    },
+    {
+      "titulo": "Lista de Tareas",
+      "fecha": 2022,
+      "descripcion": "Practica de angular",
+      "img": "../assets/images/portPrj.png",
+      "id": 1
+    }
+  ],
+  "skills": [
+    {
+      "titulo": "HTML",
+      "percent": 85,
+      "color": "#ff3300",
+      "colorGr": "#ff9500",
+      "img": "../assets/images/HTML5.svg",
+      "id": 0
+    },
+    {
+      "titulo": "CSS",
+      "percent": 75,
+      "color": "#144ac8",
+      "colorGr": "#00d5ff",
+      "img": "../assets/images/CSS3.svg",
+      "id": 1
+    },
+    {
+      "titulo": "JavaScript",
+      "percent": 70,
+      "color": "#ffea00",
+      "colorGr": "#ffae52",
+      "img": "../assets/images/JS.svg",
+      "customW": 70,
+      "customH": 70,
+      "id": 2
+    },
+    {
+      "titulo": "Ingles",
+      "percent": "50",
+      "color": "#1420c8",
+      "colorGr": "#009dff",
+      "img": "../assets/images/ingles.png",
+      "id": 3
+    },
+    {
+      "titulo": "Github",
+      "percent": 55,
+      "img": "./assets/images/git.png",
+      "color": "#490382",
+      "colorGr": "#7b1fc7",
+      "id": 4
+    },
+    {
+      "titulo": "Trabajo grupal",
+      "percent": 75,
+      "img": "./assets/images/grupal.png",
+      "color": "#242424",
+      "colorGr": "#7a7a7a",
+      "id": 5
+    }
+  ]
+}

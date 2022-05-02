@@ -3,27 +3,30 @@ import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
 
-
 @Component({
-  selector: 'app-proyectos',
-  templateUrl: './proyectos.component.html',
-  styleUrls: ['./proyectos.component.css']
+  selector: 'app-edu',
+  templateUrl: './edu.component.html',
+  styleUrls: ['./edu.component.css']
 })
-export class ProyectosComponent implements OnInit {
+export class EduComponent implements OnInit {
+  edu:any [] = [];
 
-  proj:any [] = [];
+  url: string = 'http://localhost:3000/edu';
 
-  url: string = 'http://localhost:3000/proj';
+  lugar:string = '';
+  titulo:string = '';
+  descripcion:string = '';
+  startDate:string = '';
+  endDate:string = '';
+  imgBool:boolean = false;
+  img:string = "../../../assets/images/APicon.png";
 
-  titulo:string='';
-  fecha:string='';
-  descripcion:string='';
-  img:string = "../assets/images/portPrj.png";
-  adminSesion:boolean = false;
-  subscription?:Subscription;
   editItem:any;
   addMode:boolean = false;
   editMode:boolean = false;
+
+  adminSesion:boolean = false;
+  subscription?:Subscription;
 
 
   constructor(private json: JsonService, private uiService:UiService) { 
@@ -35,8 +38,8 @@ export class ProyectosComponent implements OnInit {
   }
 
   dataLoad(){
-    this.json.getJson(this.url).subscribe((projD:any)=>{
-      this.proj = projD
+    this.json.getJson(this.url).subscribe((eduD:any)=>{
+      this.edu = eduD
     })
   }
 
@@ -48,18 +51,19 @@ export class ProyectosComponent implements OnInit {
   }
 
   saveAdd(){
-    const {titulo,fecha,descripcion,img} = this;
-    const newItem = {titulo,fecha,descripcion,img}
+    const {lugar,titulo,descripcion,startDate,endDate,img} = this;
+    const newItem = {lugar,titulo,descripcion,startDate,endDate,img}
     this.json.addItem(this.url,newItem).subscribe((newItem)=>{
-      this.proj.push(newItem);
+      this.edu.push(newItem);
     });
+    this.cancel()
   }
 
   onDelete(item:any){
     this.json.deleteItem(this.url,item)
     .subscribe(
       ()=>[
-      this.proj = this.proj.filter( (s) => s.id !== item.id)
+      this.edu = this.edu.filter( (s) => s.id !== item.id)
     ])
   }
 
@@ -75,6 +79,7 @@ export class ProyectosComponent implements OnInit {
     this.unoIgualADos(this.editItem,this)
     this.json.updateItem(this.url,this.editItem).subscribe();
     this.setDefault()
+    this.cancel()
   }
 
   cancel(){
@@ -83,16 +88,18 @@ export class ProyectosComponent implements OnInit {
   }
 
   setDefault(){
+    this.lugar = '';
     this.titulo = '';
-    this.fecha = '';
     this.descripcion = '';
-    this.img = "../assets/images/portPrj.png";
+    this.startDate = '';
+    this.endDate = '';
   }
 
   unoIgualADos(item1:any,item2:any){
+    item1.lugar = item2.lugar;
     item1.titulo = item2.titulo;
-    item1.fecha = item2.fecha;
     item1.descripcion = item2.descripcion;
-    item1.img = item2.img;
+    item1.startDate = item2.startDate;
+    item1.endDate = item2.endDate;
   }
 }
