@@ -37,13 +37,13 @@ export class ExpComponent implements OnInit {
   ngOnInit(): void {
     this.dataLoad()
   }
+  
 
   dataLoad(){
     this.json.getJson(this.url).subscribe((expD:any)=>{
       this.exp = expD
     })
   }
-
 
   onAdd(){
     this.addMode = true

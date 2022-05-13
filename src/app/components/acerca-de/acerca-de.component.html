@@ -1,4 +1,4 @@
-
+<div>
 <div *ngFor="let info of data" class="container-fluid">
      
 <div class="row bg-body rounded-bottom shadow-sm" id="main_con">
@@ -17,7 +17,37 @@
         <span>
             <p>{{info.descripcion}}</p>
         </span>
+        <button class="btn btn-outline-dark" (click)="onEdit(info)" *ngIf="adminSesion">Editar</button>
     </div>
     
  </div>
+</div>
+    <!-- Formulario editar -->
+    <div class="container-fluid ">
+        <div class="bg-body rounded my-3">
+            <div class="text-center my-3" *ngIf="adminSesion && editMode">
+              <label for="nombre">Nombre</label><br>
+              <input type="text" placeholder="Nombre/s" [(ngModel)]="nombre"><br>
+              <label for="apellido">Apellido</label><br>
+              <input type="text" placeholder="Apellido/s" [(ngModel)]="apellido"><br>
+              <label for="titulo">Titulo</label><br>
+              <input type="text" placeholder="Titulo" [(ngModel)]="titulo"><br>
+              <label for="lugar">Lugar</label><br>
+              <input type="text" placeholder="Lugar" [(ngModel)]="lugar"><br>
+              <label for="descripcion">Descripcion</label><br>
+              <input type="text" class="descInput" placeholder="Descripcion" [(ngModel)]="descripcion"><br>
+              <div class="col-sm-12 text-center mb-3">
+                <label for="img">Imagen</label><br>
+                <input type="text" [(ngModel)]="img">
+            </div> 
+
+              <br>
+
+              <button class="btn btn-outline-dark mx-3 my-3"(click)="saveEdit()" *ngIf="editMode">guardar Edit</button>
+      
+              <button class="btn btn-outline-dark mx-3 my-3" (click)="cancel()">cancelar</button>
+            </div>
+      
+          </div>
+    </div>
 </div>

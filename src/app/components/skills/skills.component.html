@@ -2,7 +2,7 @@
 <div class="my-3 p-3 bg-body rounded shadow-sm">
     <h1>Hard & Soft Skills</h1>
     <button class="btn btn-outline-dark" (click)="onAdd()" *ngIf="adminSesion">Nuevo Skill</button>
-    <div *ngIf="addMode||editMode">
+    <div *ngIf="adminSesion && addMode||editMode">
 
     <div class="row border text-center my-3">
         <div class="col-sm-12 col-md-6 text-center my-3">
