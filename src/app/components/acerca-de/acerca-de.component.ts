@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-acerca-de',
@@ -23,13 +24,20 @@ export class AcercaDeComponent implements OnInit {
 
   adminSesion= false;
   subscription?:Subscription;
-  editMode= false;
 
-  constructor(private json: JsonService,private uiService:UiService) { 
+  constructor(private json: JsonService,private uiService:UiService, private modalService: NgbModal) { 
     this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
   }
   ngOnInit(): void {
     this.dataLoad()
+  }
+
+  open(content:any) {
+    this.modalService.open(content);
+  }
+  openEdit(item:any,content:any){
+    this.onEdit(item);
+    this.open(content);
   }
 
   dataLoad(){
@@ -42,7 +50,6 @@ export class AcercaDeComponent implements OnInit {
     console.log("estas editando el item "+ item.id)
     this.editItem = item
     this.unoIgualADos(this,item)
-    this.editMode = true
   }
 
   saveEdit(){
@@ -50,9 +57,6 @@ export class AcercaDeComponent implements OnInit {
     this.json.updateItem(this.url,this.editItem).subscribe();
   }
 
-  cancel(){
-    this.editMode = false;
-  }
 
   unoIgualADos(item1:any,item2:any){
     item1.nombre = item2.nombre;

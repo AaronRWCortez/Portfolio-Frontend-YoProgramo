@@ -3,36 +3,8 @@
   <div class="my-3 p-3 bg-body rounded shadow-sm">
     <!--Experiencia-->
 
-    <div>
-      <button class="btn btn-outline-dark mx-3 my-3"(click)="onAdd()" *ngIf="adminSesion">Crear Nuevo</button>
-      <div class="text-center my-3" *ngIf="adminSesion && addMode || editMode">
-        <label for="titulo">Empresa</label><br>
-        <input type="text" name="titulo" id="titulo" placeholder="Nombre empresa" [(ngModel)]="lugar"><br>
-        <label for="titulo">Puesto</label><br>
-        <input type="text" name="titulo" id="titulo" placeholder="Puesto de Trabajo" [(ngModel)]="puesto"><br>
-        <label for="titulo">Descripción</label><br>
-        <input type="text" name="titulo" id="titulo" placeholder="Descripción" [(ngModel)]="descripcion"><br>
-        <br>
-        <div>
-        <label for="logo">Logo</label>
-        <input type="checkbox" name="logo" id="logo" placeholder="Descripción" [(ngModel)]="imgBool">
-        <p *ngIf="imgBool">URL:</p>
-        <input type="text" name="img" id="img" placeholder="Descripción" *ngIf="imgBool" [(ngModel)]="img">
-        <br>
-        </div>
-        <label for="titulo">fecha</label><br>
-        <input type="text" name="titulo" id="titulo" placeholder="" [(ngModel)]="startDate">
-        <label for="--">--</label>
-        <input type="text" name="titulo" id="titulo" placeholder="" [(ngModel)]="endDate"><br>
-        <button class="btn btn-outline-dark mx-3 my-3"(click)="saveAdd()" *ngIf="addMode && !editMode">guardar Nuevo</button>
-        <button class="btn btn-outline-dark mx-3 my-3"(click)="saveEdit()" *ngIf="!addMode && editMode">guardar Edit</button>
-
-        <button class="btn btn-outline-dark mx-3 my-3" (click)="cancel()">cancelar</button>
-      </div>
-
-    </div>
     
-
+    <button class="btn btn-outline-dark" (click)="openAdd(content)" *ngIf="adminSesion">Añadir</button>
     <h3 class=" pb-2 mb-0">Experiencia</h3>
 
     <div class="d-flex p-3 border-bottom" *ngFor="let item of exp">
@@ -42,10 +14,49 @@
         <strong class="d-block text-gray-dark">{{item.puesto}} ({{item.startDate}} -- {{item.endDate}})</strong>
         <p text="muted" class="d-block text-gray-dark">{{item.descripcion}}</p>
         <button  class="btn btn-outline-dark" (click)="onDelete(item)" *ngIf="adminSesion">Borrar</button>
-        <button class="btn btn-outline-dark" (click)="onEdit(item)" *ngIf="adminSesion">Editar</button>
+        <button class="btn btn-outline-dark" (click)="openEdit(item,content)" *ngIf="adminSesion">Editar</button>
       </div>
     </div>
 </div>
-    
 </div>
 
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Informacion</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+          <div class="mb-3">
+            
+            <div class="text-center my-3">
+              <label for="titulo">Empresa</label><br>
+              <input type="text" name="Empresa" class="form-control" placeholder="Nombre Empresa" [(ngModel)]="lugar"><br>
+              <label for="titulo">Puesto</label><br>
+              <input type="text" name="Puesto" class="form-control" placeholder="Puesto" [(ngModel)]="puesto"><br>
+              <label for="titulo">Descripción</label><br>
+              <textarea type="text" name="Descripción" class="form-control" placeholder="Descripción" [(ngModel)]="descripcion"></textarea><br>
+              <div>
+                <label for="logo">Logo</label>
+              <input type="checkbox" name="logo" id="logo" placeholder="Descripción" [(ngModel)]="imgBool"><br>
+              <p *ngIf="imgBool">URL:</p>
+              <input type="text" name="img" id="img" class="form-control" placeholder="Descripción" *ngIf="imgBool" [(ngModel)]="img"><br>
+              </div>
+                <label for="fecha">Fecha</label><br>
+              <div class="row">
+                <div class="col mx-3">
+                  <input type="text" name="fecha1" class="form-control" placeholder="" [(ngModel)]="startDate">
+                </div>
+                <h3 class="col-1">-</h3>
+                <div class="col mx-3">
+                  <input type="text" name="fecha2" class="form-control" placeholder="" [(ngModel)]="endDate"><br>    
+                </div>
+              </div>
+    
+          </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-dark mx-3 my-3"(click)="saveAdd(); modal.close('Saved New')" *ngIf="addMode && !editMode">guardar Nuevo</button>
+        <button class="btn btn-outline-dark mx-3 my-3"(click)="saveEdit(); modal.close('Saved Edit')" *ngIf="!addMode && editMode">guardar Edit</button>
+      </div>
+    </ng-template>

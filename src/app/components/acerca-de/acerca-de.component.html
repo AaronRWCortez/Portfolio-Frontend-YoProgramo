@@ -2,7 +2,7 @@
 <div *ngFor="let info of data" class="container-fluid">
      
 <div class="row bg-body rounded-bottom shadow-sm" id="main_con">
-    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 position-relative " id="img_div" >
+    <div class="mx-3 col-xs-12 col-sm-2 col-md-2 col-lg-2 position-relative " id="img_div" >
         <img [src]="info.placeHolder" alt="" id="transparente" class="img-fluid">
         <img [src]="info.img" alt="" id="perfil" class="img-fluid img-thumbnail rounded-circle position-absolute top-0 start-50 translate-middle">
         <p class="mt-3">{{info.nombre}} {{info.apellido}}</p>
@@ -12,42 +12,39 @@
 
         <p>{{info.lugar}} <a href="">informacion personal</a></p>
     </div>
-    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 p-4 position-relative">
+    <div class="col-xs-11 col-sm-7 col-md-7 col-lg-7 p-3 position-relative">
         <h3>Acerca de Mi</h3>
         <span>
             <p>{{info.descripcion}}</p>
         </span>
-        <button class="btn btn-outline-dark" (click)="onEdit(info)" *ngIf="adminSesion">Editar</button>
-    </div>
-    
- </div>
-</div>
-    <!-- Formulario editar -->
-    <div class="container-fluid ">
-        <div class="bg-body rounded my-3">
-            <div class="text-center my-3" *ngIf="adminSesion && editMode">
-              <label for="nombre">Nombre</label><br>
-              <input type="text" placeholder="Nombre/s" [(ngModel)]="nombre"><br>
-              <label for="apellido">Apellido</label><br>
-              <input type="text" placeholder="Apellido/s" [(ngModel)]="apellido"><br>
-              <label for="titulo">Titulo</label><br>
-              <input type="text" placeholder="Titulo" [(ngModel)]="titulo"><br>
-              <label for="lugar">Lugar</label><br>
-              <input type="text" placeholder="Lugar" [(ngModel)]="lugar"><br>
-              <label for="descripcion">Descripcion</label><br>
-              <input type="text" class="descInput" placeholder="Descripcion" [(ngModel)]="descripcion"><br>
-              <div class="col-sm-12 text-center mb-3">
-                <label for="img">Imagen</label><br>
-                <input type="text" [(ngModel)]="img">
-            </div> 
-
-              <br>
-
-              <button class="btn btn-outline-dark mx-3 my-3"(click)="saveEdit()" *ngIf="editMode">guardar Edit</button>
-      
-              <button class="btn btn-outline-dark mx-3 my-3" (click)="cancel()">cancelar</button>
-            </div>
-      
-          </div>
+        <button class="btn btn-outline-dark" (click)="openEdit(info,content)" *ngIf="adminSesion">Editar</button>
     </div>
 </div>
+
+  
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Informacion</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="mb-3">
+            <label for="nombre">Nombre</label><br>
+            <input type="text" class="form-control" placeholder="Nombre/s" [(ngModel)]="nombre"><br>
+            <label for="apellido">Apellido</label><br>
+            <input type="text" class="form-control" placeholder="Apellido/s" [(ngModel)]="apellido"><br>
+            <label for="titulo">Titulo</label><br>
+            <input type="text" class="form-control" placeholder="Titulo" [(ngModel)]="titulo"><br>
+            <label for="lugar">Lugar</label><br>
+            <input type="text" class="form-control" placeholder="Lugar" [(ngModel)]="lugar"><br>
+            <label for="descripcion">Descripcion</label><br>
+            <textarea type="text" class="form-control" class="form-control" placeholder="Descripcion" [(ngModel)]="descripcion"></textarea><br>
+            <label for="img">Imagen</label><br>
+            <input type="text" class="form-control" [(ngModel)]="img">
+            <br>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-outline-dark mx-3 my-3"(click)="saveEdit();  modal.close('Saved Edit')">Guardar</button>
+    </div>
+  </ng-template>

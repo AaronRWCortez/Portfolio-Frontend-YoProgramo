@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+.modal-header{
+    background-image: linear-gradient(to right, #0B36A8, #1b7ecf);
+}
+
+#modal-basic-title{
+    color: aliceblue;
+}
+
+.vistaPrev{
+    color: aliceblue;
+    background-image: linear-gradient(to right, #0B36A8, #1b7ecf);
+}

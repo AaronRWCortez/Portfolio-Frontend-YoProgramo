@@ -1,8 +1,8 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { JsonService } from 'src/app/services/json.service';
-import { faTimes } from '@fortawesome/free-solid-svg-icons'; 
 import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class SkillsComponent implements OnInit {
   skills: any [] = [];
 
   titulo: string ="";
-  percent: any = "";
+  percent: any = 50;
   color :any = "#242424";
   colorGr :any = "#7a7a7a";
   img: string= "./assets/images/PH.png";
@@ -27,7 +27,7 @@ export class SkillsComponent implements OnInit {
 
   editItem:any = "";
 
-  constructor(private json: JsonService, private uiService:UiService) { 
+  constructor(private json: JsonService, private uiService:UiService, private modalService: NgbModal) { 
     this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
   }
 
@@ -48,6 +48,19 @@ export class SkillsComponent implements OnInit {
       ()=>[
       this.skills = this.skills.filter( (s) => s.id !== item.id)
     ])
+  }
+
+  open(content:any) {
+    this.modalService.open(content);
+  }
+  openEdit(item:any,content:any){
+    this.onEdit(item);
+    this.open(content);
+  }
+
+  openAdd(content:any){
+    this.onAdd();
+    this.open(content);
   }
 
   cancel(){

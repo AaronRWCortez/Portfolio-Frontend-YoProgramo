@@ -16,6 +16,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { FormsModule } from '@angular/forms';
 import { EduComponent } from './components/edu/edu.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ModalComponent } from './components/modal/modal.component';
       "imageWidth": 75,
       "showImage": true,
       "showBackground": false
-    })
+    }),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -40,7 +40,7 @@
       "apellido": "Cortez",
       "titulo": "Full Stack Web Developer Jr",
       "lugar": "Cordoba(Argentina)",
-      "descripcion": "Tengo 19 años y estudio programacion, me gusta dibujar y me interesa el desarrollo de videojuegos.",
+      "descripcion": "Tengo que ser siempre el mejor, mejor que nadie mas, atraparlos mi prueba es, entrenarlos mi ideal.\n ¡¡Pokémon!!",
       "img": "../../../assets/images/foto Perfil.jpg",
       "placeHolder": "../../../assets/images/placeholder.png",
       "id": 0
@@ -64,21 +64,12 @@
       "descripcion": "Auxiliar de pastelero y envasado de productos.",
       "img": "../../../assets/images/APicon.png",
       "id": 1
-    },
-    {
-      "lugar": "Apross",
-      "puesto": "Frontend",
-      "descripcion": "diselo de ui",
-      "startDate": "2022",
-      "endDate": "2022",
-      "img": "data:image/png;base64,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",
-      "id": 3
     }
   ],
   "edu": [
     {
-      "lugar": "Argentina Programa (#SeProgramar - #YoProgramo)",
-      "titulo": "Desarrollador web full stack junior",
+      "lugar": "Argentina Programa",
+      "titulo": "Full Stack Web Developer Jr",
       "startDate": "2021",
       "endDate": "2022",
       "descripcion": "",
@@ -93,6 +84,15 @@
       "descripcion": "",
       "img": "../../../assets/images/APicon.png",
       "id": 1
+    },
+    {
+      "lugar": "ISPC Instituto Superior Politécnico de Córdoba",
+      "titulo": "Tecnicatura Superior en Innovación con Tecnologías 4.0 ",
+      "descripcion": "",
+      "startDate": "2022",
+      "endDate": "2024",
+      "img": "../../../assets/images/APicon.png",
+      "id": 2
     }
   ],
   "proj": [
@@ -141,8 +141,8 @@
     {
       "titulo": "Ingles",
       "percent": 75,
-      "color": "#c81414",
-      "colorGr": "#ff2600",
+      "color": "#141ac8",
+      "colorGr": "#009dff",
       "img": "../assets/images/ingles.png",
       "id": 3
     },
@@ -161,14 +161,6 @@
       "color": "#242424",
       "colorGr": "#7a7a7a",
       "id": 5
-    },
-    {
-      "titulo": "Comunicacion",
-      "percent": 60,
-      "img": "https://www.compascomunicacion.es/wp-content/uploads/2019/01/Comunicacio%CC%81n_interna-1024x1020.jpg",
-      "color": "#04fb4e",
-      "colorGr": "#00ad23",
-      "id": 6
     }
   ]
 }

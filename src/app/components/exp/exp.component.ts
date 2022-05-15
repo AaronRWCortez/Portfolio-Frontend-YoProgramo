@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
-
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-exp',
@@ -30,7 +30,7 @@ export class ExpComponent implements OnInit {
   editMode:boolean = false;
 
 
-  constructor(private json: JsonService, private uiService:UiService) { 
+  constructor(private json: JsonService, private uiService:UiService, private modalService: NgbModal) { 
     this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
   }
 
@@ -65,6 +65,19 @@ export class ExpComponent implements OnInit {
       ()=>[
       this.exp = this.exp.filter( (s) => s.id !== item.id)
     ])
+  }
+
+  open(content:any) {
+    this.modalService.open(content);
+  }
+  openEdit(item:any,content:any){
+    this.onEdit(item);
+    this.open(content);
+  }
+
+  openAdd(content:any){
+    this.onAdd();
+    this.open(content);
   }
 
   onEdit(item:any){

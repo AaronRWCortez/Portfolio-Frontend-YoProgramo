@@ -10,10 +10,32 @@
           <img [src]="item.img" [alt]="item.title" [id]="item.title" class="icon img-fluid">
         </a>
       </li>
-      <li class="nav-item"><button class="btn btn-outline-light btn-responsive" (click)="toggleEditMode()"><b>{{adminSesion? 'LogOut' : 'LogIn'}}</b></button></li>
+      <li class="nav-item"><button class="btn btn-outline-light btn-responsive" *ngIf="adminSesion == false" (click)="open(content)"><b>LogIn</b></button></li>
+      <li class="nav-item"><button class="btn btn-outline-light btn-responsive" *ngIf="adminSesion"(click)="toggleEditMode()"><b>LogOut</b></button></li>
     </ul>
 </header>  
 </div>
 
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Ingresar</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click'); clear()"></button>
+  </div>
+  <div class="modal-body">
+      <div class="mb-3">
+      <div class="text-center my-3">
+
+          <label for="titulo">Usuario</label><br>
+          <input type="text" name="titulo" placeholder="Usuario" class="form-control" [(ngModel)]="user"><br>
+          <label for="titulo">Contraseña</label><br>
+          <input type="password" name="titulo" placeholder="Contraseña" class="form-control" [(ngModel)]="pass"><br>
+          
+      </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-outline-dark mx-3 my-3"(click)="sesionCall() ; modal.close('Sesion'); clear()">Iniciar Sesión</button>
+  </div>
+</ng-template>
 
 

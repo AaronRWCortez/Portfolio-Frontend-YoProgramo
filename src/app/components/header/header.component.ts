@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap'
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +21,9 @@ export class HeaderComponent implements OnInit {
   adminSesion:boolean = false;
   subscription?:Subscription;
   
-  constructor(private json: JsonService, private uiService:UiService) { 
+  user: string = "";
+  pass: string = "";
+  constructor(private json: JsonService, private uiService:UiService, private modalService: NgbModal, private _auth:AuthService) { 
     this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
   }
 
@@ -38,5 +42,24 @@ export class HeaderComponent implements OnInit {
 
   toggleEditMode(){
     this.uiService.toggleEditMode();
+  }
+
+  open(content:any) {
+    this.modalService.open(content);
+  }
+
+  sesionCall(){
+    if(this._auth.setSesion(this.user,this.pass)){
+      this.toggleEditMode()
+    }
+    else{
+      alert("Usuario o contraseña incorrecto")
+    }
+    
+  }
+
+  clear(){
+    this.user = '';
+    this.pass = '';
   }
 }

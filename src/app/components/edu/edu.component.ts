@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-edu',
@@ -29,7 +30,7 @@ export class EduComponent implements OnInit {
   subscription?:Subscription;
 
 
-  constructor(private json: JsonService, private uiService:UiService) { 
+  constructor(private json: JsonService, private uiService:UiService, private modalService: NgbModal) { 
     this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
   }
 
@@ -56,7 +57,7 @@ export class EduComponent implements OnInit {
     this.json.addItem(this.url,newItem).subscribe((newItem)=>{
       this.edu.push(newItem);
     });
-    this.cancel()
+    this.close()
   }
 
   onDelete(item:any){
@@ -65,6 +66,20 @@ export class EduComponent implements OnInit {
       ()=>[
       this.edu = this.edu.filter( (s) => s.id !== item.id)
     ])
+  }
+
+  
+  open(content:any) {
+    this.modalService.open(content);
+  }
+  openEdit(item:any,content:any){
+    this.onEdit(item);
+    this.open(content);
+  }
+
+  openAdd(content:any){
+    this.onAdd();
+    this.open(content);
   }
 
   onEdit(item:any){
@@ -79,12 +94,13 @@ export class EduComponent implements OnInit {
     this.unoIgualADos(this.editItem,this)
     this.json.updateItem(this.url,this.editItem).subscribe();
     this.setDefault()
-    this.cancel()
+    this.close()
   }
 
-  cancel(){
+  close(){
     this.addMode = false
     this.editMode = false
+
   }
 
   setDefault(){
