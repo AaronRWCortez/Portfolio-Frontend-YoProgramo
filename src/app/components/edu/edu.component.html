@@ -39,22 +39,22 @@
 </ng-template>
 
 
-<div class="container">
+<div class="my-3 container">
+  <div class="modal-header container-fluid mb-0">
+    <h1 class="title-light d-inline">Educacion</h1><fa-icon [icon]="faPlus" class="fa-button-light fa-2x float-right title-light" (click)="openAdd(content)" *ngIf="adminSesion"></fa-icon>
+  </div>
   
-  <div class="my-3 p-3 bg-body rounded shadow-sm">
-
-      <button class="btn btn-outline-dark" (click)="openAdd(content)" *ngIf="adminSesion">Añadir</button>
-
-    <h3 class=" pb-2 mb-0">Educación</h3>
-
+  <div class=" p-3 bg-body rounded shadow-sm">
     <div class="d-flex p-3 border-bottom" *ngFor="let item of edu">
       <img class=" my-auto me-3 rounded" width="50px" height="50px" [src]="item.img" >
-      <div class=" small lh-sm">
-        <strong class="d-block text-gray-dark fs-5">{{item.lugar}}</strong>
+      <div class="small lh-sm">
+        <strong class="d-block text-gray-dark fs-5 ">{{item.lugar}}</strong>
         <strong class="d-block text-gray-dark">{{item.titulo}} ({{item.startDate}} -- {{item.endDate}})</strong>
         <p text="muted" class="d-block text-gray-dark">{{item.descripcion}}</p>
-        <button  class="btn btn-outline-dark" (click)="onDelete(item)" *ngIf="adminSesion">Borrar</button>
-        <button class="btn btn-outline-dark" (click)="openEdit(item,content)" *ngIf="adminSesion">Editar</button>
+      </div>
+      <div class="d-block">
+      <fa-icon [icon]="faXmark" class="float-right fa-button fa-lg" (click)="onDelete(item)" *ngIf="adminSesion"></fa-icon>
+      <fa-icon [icon]="faPencil" class="float-right fa-button fa-lg" (click)="openEdit(item,content)" *ngIf="adminSesion"></fa-icon>
       </div>
     </div>
 </div>   

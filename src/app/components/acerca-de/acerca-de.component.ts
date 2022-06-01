@@ -10,19 +10,28 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./acerca-de.component.css']
 })
 export class AcercaDeComponent implements OnInit {
-  data:any;
-  url: string = 'http://localhost:3000/info';
-
-  nombre = '';
-  apellido = '';
-  titulo = '';
-  lugar='';
-  descripcion='';
-  img="";
+  placeHolder =  "../../../assets/images/placeholder.png"
+  
+  info:any = {
+    apellido: "",
+    descripcion: "",
+    img: "../../../assets/images/PH.png",
+    localidad: "",
+    nombre: "",
+    titulo: "",
+  };
+  url: string = 'personas';
+  userID: number = 1;
+  nombre: string  = '';
+  apellido: string  = '';
+  titulo: string  = '';
+  localidad: string ='';
+  descripcion: string ='';
+  img : string ="";
 
   editItem:any = '';
 
-  adminSesion= false;
+  adminSesion = true;
   subscription?:Subscription;
 
   constructor(private json: JsonService,private uiService:UiService, private modalService: NgbModal) { 
@@ -41,8 +50,8 @@ export class AcercaDeComponent implements OnInit {
   }
 
   dataLoad(){
-    this.json.getJson(this.url).subscribe((res:any)=>{
-      this.data = res
+    this.json.getbyID(this.url,this.userID).subscribe((res:any)=>{
+      this.info = res
     })
   }
 
@@ -62,7 +71,7 @@ export class AcercaDeComponent implements OnInit {
     item1.nombre = item2.nombre;
     item1.apellido = item2.apellido;
     item1.titulo = item2.titulo;
-    item1.lugar = item2.lugar;
+    item1.localidad = item2.localidad;
     item1.descripcion = item2.descripcion;
     item1.img = item2.img;
   }

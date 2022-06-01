@@ -89,8 +89,9 @@ export class ExpComponent implements OnInit {
   }
 
   saveEdit(){
-    this.unoIgualADos(this.editItem,this)
-    this.json.updateItem(this.url,this.editItem).subscribe();
+    this.json.updateItem(this.url,this.editItem).subscribe(()=>{
+      this.unoIgualADos(this.editItem,this)
+    });
     this.setDefault()
   }
 

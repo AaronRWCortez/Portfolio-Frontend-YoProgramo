@@ -34,15 +34,19 @@
       "link": "#"
     }
   ],
+  "banner": [
+    {
+      "link": "../../../assets/images/banner.jpg"
+    }
+  ],
   "info": [
     {
       "nombre": "Aaron Ramiro Waldemar",
       "apellido": "Cortez",
       "titulo": "Full Stack Web Developer Jr",
-      "lugar": "Cordoba(Argentina)",
+      "localidad": "Cordoba(Argentina)",
       "descripcion": "Tengo que ser siempre el mejor, mejor que nadie mas, atraparlos mi prueba es, entrenarlos mi ideal.\n ¡¡Pokémon!!",
       "img": "../../../assets/images/foto Perfil.jpg",
-      "placeHolder": "../../../assets/images/placeholder.png",
       "id": 0
     }
   ],
@@ -93,6 +97,15 @@
       "endDate": "2024",
       "img": "../../../assets/images/APicon.png",
       "id": 2
+    },
+    {
+      "lugar": "user",
+      "titulo": "CSS",
+      "descripcion": "asdasdasd",
+      "startDate": "2022",
+      "endDate": "2024",
+      "img": "../../../assets/images/APicon.png",
+      "id": 3
     }
   ],
   "proj": [

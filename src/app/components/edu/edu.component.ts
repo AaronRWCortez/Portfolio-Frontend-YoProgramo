@@ -3,6 +3,7 @@ import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { faXmark,faPencil,faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-edu',
@@ -10,6 +11,10 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./edu.component.css']
 })
 export class EduComponent implements OnInit {
+  faXmark = faXmark
+  faPencil = faPencil
+  faPlus = faPlusCircle
+
   edu:any [] = [];
 
   url: string = 'http://localhost:3000/edu';

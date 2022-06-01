@@ -3,6 +3,7 @@ import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { faXmark,faPencil,faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -13,7 +14,9 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 export class SkillsComponent implements OnInit {
   url: string = 'http://localhost:3000/skills';
   skills: any [] = [];
-
+  faXmark = faXmark
+  faPencil = faPencil
+  faPlus = faPlusCircle
   titulo: string ="";
   percent: any = 50;
   color :any = "#242424";

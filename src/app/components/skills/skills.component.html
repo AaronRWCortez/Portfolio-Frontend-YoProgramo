@@ -52,23 +52,25 @@
   </div>
 </ng-template>
 
-<div class="container">
-<div class="my-3 p-3 bg-body rounded shadow-sm">
-    <h1>Hard & Soft Skills</h1>
-    <button class="btn btn-outline-dark" (click)="openAdd(content)" *ngIf="adminSesion">Añadir</button>
-
+<div class="container mb-3">
+  <div class="modal-header container-fluid mb-0">
+    <h1 class="title-light">Hard & Soft Skills   <fa-icon [icon]="faPlus" class="fa-button-light fa-sm float-right title-light" (click)="openAdd(content)" *ngIf="adminSesion"></fa-icon></h1>
+  </div>
+<div class="p-3 bg-body rounded-bottom shadow-sm">
+  
     <div class="row my-3">
       <div class="col-xs-6 col-sm-4 col-md-4 col-lg-2 img-fluid text-center" *ngFor="let item of skills">
       <div title = {{item.titulo}}>
+        <h4>{{item.titulo}}</h4>
       <circle-progress
       [percent] ="item.percent"
       [imageSrc]="item.img"
       [outerStrokeColor]="item.color"
       [outerStrokeGradientStopColor]="item.colorGr"
       ></circle-progress>
-      <h4 class="text-center"><b>{{item.percent}}%</b></h4> 
-      <button  class="btn btn-outline-dark" (click)="onDelete(item)" *ngIf="adminSesion">Borrar</button>
-      <button class="btn btn-outline-dark" (click)="openEdit(item,content)" *ngIf="adminSesion">Editar</button>
+      <h4 class="text-center"><b>{{item.percent}}%</b></h4>
+      <fa-icon [icon]="faXmark" class="fa-button fa-lg" (click)="onDelete(item)" *ngIf="adminSesion"></fa-icon>
+      <fa-icon [icon]="faPencil" class="fa-button fa-lg" (click)="openEdit(item,content)" *ngIf="adminSesion"></fa-icon>
       </div>
       
       </div>

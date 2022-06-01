@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { EduComponent } from './components/edu/edu.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {DbService} from './services/db.service'
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     }),
     NgbModule
   ],
-  providers: [],
+  providers: [DbService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

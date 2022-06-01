@@ -6,37 +6,34 @@ import { Observable, of } from 'rxjs';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type':'application/json'})
 }
+
 @Injectable({
   providedIn: 'root'
 })
-export class JsonService {
+export class DbService {
+
   apiUrl: string = 'http://localhost:8080';
 
   constructor(private http : HttpClient) { }
   /* se invoca en el constructor */
 
-  getJson(list:any): Observable<any[]>{
+  getData(list:any): Observable<unknown>{
     const url = `${this.apiUrl}/${list}/traer`
-    return this.http.get<any[]>(url)
+    return this.http.get(url);
   }
 
-  getbyID(list:any,id:any): Observable<any>{
-    const url = `${this.apiUrl}/${list}/traer/${id}`
-    return this.http.get<any>(url)
-  }
-
-
-  deleteItem(list:any,item:any): Observable<any>{
-    const url = `${this.apiUrl}/${list}/${item.id}` 
-    return this.http.delete<any>(url)
+  deleteItem(list:any,item:any){
+    const url = `${this.apiUrl}/${list}/borrar/${item.id}` 
+    return this.http.delete(url);
   }
   
-  updateItem(list:any,item: any): Observable<any>{
+  updateItem(list:any,item: any){
     const url = `${this.apiUrl}/${list}/editar/${item.id}` 
-    return this.http.put<any>(url, item)
+    return this.http.put(url, item);
   }
   
-  addItem(list:any,item:any): Observable<any>{
-    return this.http.post<any>(list, item)
+  addItem(list:any,item:any): Observable<unknown>{
+    const url = `${this.apiUrl}/${list}/crear`
+    return this.http.post(url, item);
   }
 }

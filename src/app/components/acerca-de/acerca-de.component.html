@@ -1,16 +1,16 @@
 <div>
-<div *ngFor="let info of data" class="container-fluid">
+<div class="container-fluid">
      
 <div class="row bg-body rounded-bottom shadow-sm" id="main_con">
     <div class="mx-3 col-xs-12 col-sm-2 col-md-2 col-lg-2 position-relative " id="img_div" >
-        <img [src]="info.placeHolder" alt="" id="transparente" class="img-fluid">
+        <img [src]="placeHolder" alt="" id="transparente" class="img-fluid">
         <img [src]="info.img" alt="" id="perfil" class="img-fluid img-thumbnail rounded-circle position-absolute top-0 start-50 translate-middle">
         <p class="mt-3">{{info.nombre}} {{info.apellido}}</p>
     </div>
     <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 pt-5 position-relative" id="nom_con">
         <label for="title"class="align-middle">{{info.titulo}}</label>
 
-        <p>{{info.lugar}} <a href="">informacion personal</a></p>
+        <p>{{info.localidad}} <a href="">informacion personal</a></p>
     </div>
     <div class="col-xs-11 col-sm-7 col-md-7 col-lg-7 p-3 position-relative">
         <h3>Acerca de Mi</h3>
@@ -35,8 +35,8 @@
             <input type="text" class="form-control" placeholder="Apellido/s" [(ngModel)]="apellido"><br>
             <label for="titulo">Titulo</label><br>
             <input type="text" class="form-control" placeholder="Titulo" [(ngModel)]="titulo"><br>
-            <label for="lugar">Lugar</label><br>
-            <input type="text" class="form-control" placeholder="Lugar" [(ngModel)]="lugar"><br>
+            <label for="localidad">localidad</label><br>
+            <input type="text" class="form-control" placeholder="localidad" [(ngModel)]="localidad"><br>
             <label for="descripcion">Descripcion</label><br>
             <textarea type="text" class="form-control" class="form-control" placeholder="Descripcion" [(ngModel)]="descripcion"></textarea><br>
             <label for="img">Imagen</label><br>

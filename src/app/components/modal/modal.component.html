@@ -1,34 +1,37 @@
+
+<button class="btn btn-outline-dark" (click)="dataLoad()" *ngIf="adminSesion">Actualizar</button>
+
+<button class="btn btn-outline-dark" (click)="openAdd(content)" *ngIf="adminSesion">Añadir</button>
+
+<div *ngFor="let item of persona">
+<h3>soy el espacio {{item.id}}, mi nombre es {{item.nombre}} {{item.apellido}}</h3>
+<p>foto de perfil {{item.img}}</p>
+<button  class="btn btn-outline-dark" (click)="onDelete(item)" *ngIf="adminSesion">Borrar</button>
+<button class="btn btn-outline-dark" (click)="openEdit(item,content)" *ngIf="adminSesion">Editar</button>
+</div>
+
+
+
 <ng-template #content let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+      <h4 class="modal-title" id="modal-basic-title">Informacion</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-      <form>
         <div class="mb-3">
-            <label for="nombre">Nombre</label><br>
-            <input type="text" class="form-control" placeholder="Nombre/s" [(ngModel)]="nombre"><br>
-            <label for="apellido">Apellido</label><br>
-            <input type="text" class="form-control" placeholder="Apellido/s" [(ngModel)]="apellido"><br>
-            <label for="titulo">Titulo</label><br>
-            <input type="text" class="form-control" placeholder="Titulo" [(ngModel)]="titulo"><br>
-            <label for="lugar">Lugar</label><br>
-            <input type="text" class="form-control" placeholder="Lugar" [(ngModel)]="lugar"><br>
-            <label for="descripcion">Descripcion</label><br>
-            <input type="text" class="form-control" class="form-control" placeholder="Descripcion" [(ngModel)]="descripcion"><br>
-            <label for="img">Imagen</label><br>
-            <input type="text" class="form-control" [(ngModel)]="img">
-            <br>
+          
+          <div class="text-center my-3">
+            <label for="titulo">Nombre</label><br>
+            <input type="text" name="nombre" class="form-control" placeholder="Nombre" [(ngModel)]="nombre"><br>
+            <label for="titulo">Apellido</label><br>
+            <input type="text" name="Apellido" class="form-control" placeholder="Apellido" [(ngModel)]="apellido"><br>
+            <label for="titulo">img</label><br>
+            <textarea type="text" name="img" class="form-control" placeholder="img" [(ngModel)]="img"></textarea><br>  
         </div>
-      </form>
+    </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+      <button class="btn btn-outline-dark mx-3 my-3"(click)="saveAdd(); modal.close('Saved New')" *ngIf="addMode && !editMode">guardar Nuevo</button>
+      <button class="btn btn-outline-dark mx-3 my-3"(click)="saveEdit(); modal.close('Saved Edit')" *ngIf="!addMode && editMode">guardar Edit</button>
     </div>
   </ng-template>
-  
-  <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
-  
-  <hr>
-  
-  <pre>{{ closeResult }}</pre>

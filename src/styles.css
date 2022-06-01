@@ -7,7 +7,35 @@
     color: aliceblue;
 }
 
+.title-light{
+    color: aliceblue;
+}
+
 .vistaPrev{
     color: aliceblue;
     background-image: linear-gradient(to right, #0B36A8, #1b7ecf);
+}
+
+fa-icon{
+    margin: 5px;
+}
+
+.fa-button:hover{
+    color: rgb(28, 75, 228) !important;
+    
+}
+
+.fa-button:active{
+    color: rgb(85, 207, 238) !important;
+    
+}
+
+.fa-button-light:hover{
+    color: rgb(140, 199, 252) !important;
+    
+}
+
+.fa-button-light:active{
+    color: rgb(56, 159, 250) !important;
+    
 }
