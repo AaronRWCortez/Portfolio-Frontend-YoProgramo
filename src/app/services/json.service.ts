@@ -27,7 +27,7 @@ export class JsonService {
 
 
   deleteItem(list:any,item:any): Observable<any>{
-    const url = `${this.apiUrl}/${list}/${item.id}` 
+    const url = `${this.apiUrl}/${list}/borrar/${item.id}` 
     return this.http.delete<any>(url)
   }
   
@@ -37,6 +37,7 @@ export class JsonService {
   }
   
   addItem(list:any,item:any): Observable<any>{
-    return this.http.post<any>(list, item)
+    const url = `${this.apiUrl}/${list}/crear`
+    return this.http.post<any>(url, item)
   }
 }
