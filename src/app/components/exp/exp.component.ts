@@ -12,7 +12,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 export class ExpComponent implements OnInit {
   exp:any [] = [];
 
-  url: string = 'http://localhost:3000/exp';
+  url: string = 'experiencias';
 
   lugar:string = '';
   puesto:string = '';
@@ -22,7 +22,7 @@ export class ExpComponent implements OnInit {
   imgBool:boolean = false;
   img:string = "../../../assets/images/APicon.png";
 
-  adminSesion:boolean = false;
+  adminSesion:boolean = true;
   subscription?:Subscription;
 
   editItem:any;
@@ -60,11 +60,9 @@ export class ExpComponent implements OnInit {
   }
 
   onDelete(item:any){
-    this.json.deleteItem(this.url,item)
-    .subscribe(
-      ()=>[
-      this.exp = this.exp.filter( (s) => s.id !== item.id)
-    ])
+    this.json.deleteItem(this.url,item).subscribe((x)=>[
+        this.exp = this.exp.filter( (s) => s.id !== x)
+      ])
   }
 
   open(content:any) {
@@ -89,10 +87,8 @@ export class ExpComponent implements OnInit {
   }
 
   saveEdit(){
-    this.json.updateItem(this.url,this.editItem).subscribe(()=>{
-      this.unoIgualADos(this.editItem,this)
-    });
-    this.setDefault()
+    this.unoIgualADos(this.editItem,this)
+    this.json.updateItem(this.url,this.editItem).subscribe();
   }
 
   cancel(){
