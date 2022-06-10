@@ -12,15 +12,15 @@ import { faXmark,faPencil,faPlusCircle } from '@fortawesome/free-solid-svg-icons
   styleUrls: ['./skills.component.css']
 })
 export class SkillsComponent implements OnInit {
-  url: string = 'http://localhost:3000/skills';
-  skills: any [] = [];
+  url: string = 'skills';
+  skill: any [] = [];
   faXmark = faXmark
   faPencil = faPencil
   faPlus = faPlusCircle
   titulo: string ="";
-  percent: any = 50;
+  percent: number = 50;
   color :any = "#242424";
-  colorGr :any = "#7a7a7a";
+  colorgr :any = "#7a7a7a";
   img: string= "./assets/images/PH.png";
   editMode: boolean = false;
   addMode: boolean = false;
@@ -38,21 +38,34 @@ export class SkillsComponent implements OnInit {
     this.dataLoad()
   }
 
-
   dataLoad(){
-    this.json.getJson(this.url).subscribe((res:any)=>{
-      this.skills = res
+    this.json.getJson(this.url).subscribe((skillD:any)=>{
+      this.skill = skillD
     })
   }
 
-  onDelete(item:any){
-    this.json.deleteItem(this.url,item)
-    .subscribe(
-      ()=>[
-      this.skills = this.skills.filter( (s) => s.id !== item.id)
-    ])
+
+  onAdd(){
+    this.addMode = true
+    this.editMode = false
+    this.setDefault()
   }
 
+  saveAdd(){
+    const {titulo,percent,color,colorgr,img} = this;
+    const newItem = {titulo,percent,color,colorgr,img}
+    this.json.addItem(this.url,newItem).subscribe((newItem)=>{
+      this.skill.push(newItem);
+    });
+  }
+
+  onDelete(item:any){
+    this.json.deleteItem(this.url,item).subscribe((x)=>[
+        this.skill = this.skill.filter( (s) => s.id !== x)
+      ])
+  }
+
+  
   open(content:any) {
     this.modalService.open(content);
   }
@@ -66,57 +79,38 @@ export class SkillsComponent implements OnInit {
     this.open(content);
   }
 
-  cancel(){
+  onEdit(item:any){
+    this.editItem = item
+    this.unoIgualADos(this,item)
+    this.addMode = false
+    this.editMode = true
+  }
+
+  saveEdit(){
+    this.unoIgualADos(this.editItem,this)
+    this.json.updateItem(this.url,this.editItem).subscribe();
+  }
+
+  close(){
     this.addMode = false
     this.editMode = false
+
   }
 
   setDefault(){
     this.titulo = "";
-    this.percent = 0;
+    this.percent = 50;
     this.color = "#242424";
-    this.colorGr = "#7a7a7a";
+    this.colorgr = "#7a7a7a";
     this.img = "./assets/images/PH.png";
-  }
-
-  onAdd(){
-    this.addMode = true
-    this.editMode = false
-    this.setDefault()
   }
 
   unoIgualADos(item1:any,item2:any){
     item1.titulo = item2.titulo;
     item1.percent = item2.percent;
     item1.color = item2.color;
-    item1.colorGr = item2.colorGr;
+    item1.colorgr = item2.colorgr;
     item1.img = item2.img;
-  }
-
-  saveAdd(){
-    const {titulo,percent,img,color,colorGr} = this;
-    const newItem = {titulo,percent,img,color,colorGr}
-    this.json.addItem(this.url,newItem).subscribe((newItem)=>{
-      this.skills.push(newItem);
-    });
-    this.setDefault()
-    this.addMode = false
-  }
-
-  onEdit(item:any){
-    console.log("estas editando el item "+ item.id)
-    this.editMode = true
-    this.addMode = false
-    this.editItem = item
-    this.unoIgualADos(this,item)
-  }
-  
-  saveEdit(){
-    this.unoIgualADos(this.editItem,this)
-    this.json.updateItem(this.url,this.editItem).subscribe();
-    this.setDefault()
-    this.editMode = false
-  }
-  
+  }  
 
 }

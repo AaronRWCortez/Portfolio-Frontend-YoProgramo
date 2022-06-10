@@ -17,7 +17,7 @@ export class EduComponent implements OnInit {
 
   edu:any [] = [];
 
-  url: string = 'http://localhost:3000/edu';
+  url: string = 'educaciones';
 
   lugar:string = '';
   titulo:string = '';
@@ -62,15 +62,12 @@ export class EduComponent implements OnInit {
     this.json.addItem(this.url,newItem).subscribe((newItem)=>{
       this.edu.push(newItem);
     });
-    this.close()
   }
 
   onDelete(item:any){
-    this.json.deleteItem(this.url,item)
-    .subscribe(
-      ()=>[
-      this.edu = this.edu.filter( (s) => s.id !== item.id)
-    ])
+    this.json.deleteItem(this.url,item).subscribe((x)=>[
+        this.edu = this.edu.filter( (s) => s.id !== x)
+      ])
   }
 
   
@@ -88,7 +85,6 @@ export class EduComponent implements OnInit {
   }
 
   onEdit(item:any){
-    console.log("estas editando el item "+ item.id)
     this.editItem = item
     this.unoIgualADos(this,item)
     this.addMode = false
@@ -98,8 +94,6 @@ export class EduComponent implements OnInit {
   saveEdit(){
     this.unoIgualADos(this.editItem,this)
     this.json.updateItem(this.url,this.editItem).subscribe();
-    this.setDefault()
-    this.close()
   }
 
   close(){

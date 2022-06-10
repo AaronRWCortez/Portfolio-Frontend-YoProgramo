@@ -13,17 +13,22 @@ export class ProyectosComponent implements OnInit {
 
   proj:any [] = [];
 
-  url: string = 'http://localhost:3000/proj';
+  url: string = 'proyectos';
 
+  
+  adminSesion:boolean = false;
+  subscription?:Subscription;
+  
+  addMode:boolean = false;
+  editMode:boolean = false;
+
+  editItem:any;
+  
   titulo:string='';
   fecha:string='';
   descripcion:string='';
   img:string = "../assets/images/portPrj.png";
-  adminSesion:boolean = false;
-  subscription?:Subscription;
-  editItem:any;
-  addMode:boolean = false;
-  editMode:boolean = false;
+  enlace:string = "#"
 
 
   constructor(private json: JsonService, private uiService:UiService, private modalService: NgbModal) { 
@@ -47,20 +52,19 @@ export class ProyectosComponent implements OnInit {
     this.setDefault()
   }
 
+
   saveAdd(){
-    const {titulo,fecha,descripcion,img} = this;
-    const newItem = {titulo,fecha,descripcion,img}
+    const {titulo,fecha,descripcion,img,enlace} = this;
+    const newItem = {titulo,fecha,descripcion,img,enlace}
     this.json.addItem(this.url,newItem).subscribe((newItem)=>{
       this.proj.push(newItem);
     });
   }
 
   onDelete(item:any){
-    this.json.deleteItem(this.url,item)
-    .subscribe(
-      ()=>[
-      this.proj = this.proj.filter( (s) => s.id !== item.id)
-    ])
+    this.json.deleteItem(this.url,item).subscribe((x)=>[
+        this.proj = this.proj.filter( (s) => s.id !== x)
+      ])
   }
 
   open(content:any) {
@@ -77,7 +81,6 @@ export class ProyectosComponent implements OnInit {
   }
 
   onEdit(item:any){
-    console.log("estas editando el item "+ item.id)
     this.editItem = item
     this.unoIgualADos(this,item)
     this.addMode = false
@@ -87,7 +90,6 @@ export class ProyectosComponent implements OnInit {
   saveEdit(){
     this.unoIgualADos(this.editItem,this)
     this.json.updateItem(this.url,this.editItem).subscribe();
-    this.setDefault()
   }
 
   cancel(){
@@ -106,6 +108,7 @@ export class ProyectosComponent implements OnInit {
     item1.titulo = item2.titulo;
     item1.fecha = item2.fecha;
     item1.descripcion = item2.descripcion;
+    item1.enlace = item2.enlace;
     item1.img = item2.img;
   }
 }

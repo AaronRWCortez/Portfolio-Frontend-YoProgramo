@@ -15,8 +15,8 @@ export class HeaderComponent implements OnInit {
   
   logos:any [] = [];
 
-  urlL: string = 'http://localhost:3000/logos';
-  urlR: string = 'http://localhost:3000/redes';
+  urlL: string = 'logos';
+  urlR: string = 'redes-sociales';
 
   adminSesion:boolean = false;
   subscription?:Subscription;

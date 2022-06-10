@@ -22,7 +22,7 @@ export class ExpComponent implements OnInit {
   imgBool:boolean = false;
   img:string = "../../../assets/images/APicon.png";
 
-  adminSesion:boolean = true;
+  adminSesion:boolean = false;
   subscription?:Subscription;
 
   editItem:any;

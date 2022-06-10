@@ -32,12 +32,12 @@ export class JsonService {
   }
   
   updateItem(list:any,item: any): Observable<any>{
-    const url = `${this.apiUrl}/${list}/editar/${item.id}` 
+    const url = `${this.apiUrl}/${list}/editar/${item.id}`    
     return this.http.put<any>(url, item)
   }
   
   addItem(list:any,item:any): Observable<any>{
-    const url = `${this.apiUrl}/${list}/crear`
+    const url = `${this.apiUrl}/${list}/crear`    
     return this.http.post<any>(url, item)
   }
 }

@@ -10,6 +10,7 @@
                 <div class="col p-4 d-flex flex-column position-static">
                   <h3 class="mb-0 text-primary">{{item.titulo}}</h3>
                   <div class="mb-1 text-muted">{{item.fecha}}</div>
+                  <div class="mb-1 text-muted">{{item.enlace}}</div>
                   <p class="card-text text-light mb-auto">{{item.descripcion}}</p>
                 </div>
                 <div class="text-center">
@@ -39,8 +40,10 @@
           <input type="text" name="titulo" placeholder="Fecha de Trabajo" class="form-control" [(ngModel)]="fecha"><br>
           <label for="titulo">Descripción</label><br>
           <textarea type="text" name="titulo" placeholder="Descripción" class="form-control" [(ngModel)]="descripcion"></textarea><br>
+          <label for="titulo">enlace</label><br>
+          <input type="text" name="titulo" placeholder="enlace" class="form-control" [(ngModel)]="enlace"><br>
           <label for="logo">Imagen</label><br>
-          <input type="text" name="img" id="img" placeholder="Descripción" class="form-control" [(ngModel)]="img">
+          <input type="text" name="img" id="img" placeholder="Imagen" class="form-control" [(ngModel)]="img">
           <br>
           
       </div>
