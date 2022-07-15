@@ -15,9 +15,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { FormsModule } from '@angular/forms';
 import { EduComponent } from './components/edu/edu.component';
-import { ModalComponent } from './components/modal/modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {DbService} from './services/db.service'
+
 
 @NgModule({
   declarations: [
@@ -30,7 +29,6 @@ import {DbService} from './services/db.service'
     EduComponent,
     ProyectosComponent,
     FooterComponent,
-    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +56,7 @@ import {DbService} from './services/db.service'
     }),
     NgbModule
   ],
-  providers: [DbService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

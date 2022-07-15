@@ -3,6 +3,7 @@ import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { faXmark,faPencil,faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-proyectos',
@@ -29,6 +30,10 @@ export class ProyectosComponent implements OnInit {
   descripcion:string='';
   img:string = "../assets/images/portPrj.png";
   enlace:string = "#"
+
+  faXmark = faXmark
+  faPencil = faPencil
+  faPlus = faPlusCircle
 
 
   constructor(private json: JsonService, private uiService:UiService, private modalService: NgbModal) { 

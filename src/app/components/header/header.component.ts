@@ -21,8 +21,8 @@ export class HeaderComponent implements OnInit {
   adminSesion:boolean = false;
   subscription?:Subscription;
   
-  user: string = "Admin";
-  pass: string = "Admin";
+  user: string = "";
+  pass: string = "";
   constructor(private json: JsonService, private uiService:UiService, private modalService: NgbModal, private _auth:AuthService) { 
     this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
   }

@@ -8,14 +8,16 @@ div{
 #nom{
     margin-top: 15px;
 }
+#nom_con{
+    margin: auto  0;
+}
 
 @media(max-width: 575px) {
     #perfil{
         width: 50%;
     }
     #transparente{
-        width: 55%;
-        border: 20px;
+        width: 50%;
     }
     
 }

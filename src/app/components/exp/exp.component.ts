@@ -3,6 +3,7 @@ import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { faXmark,faPencil,faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-exp',
@@ -28,6 +29,10 @@ export class ExpComponent implements OnInit {
   editItem:any;
   addMode:boolean = false;
   editMode:boolean = false;
+
+  faXmark = faXmark
+  faPencil = faPencil
+  faPlus = faPlusCircle
 
 
   constructor(private json: JsonService, private uiService:UiService, private modalService: NgbModal) { 

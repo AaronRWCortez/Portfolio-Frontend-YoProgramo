@@ -1,11 +1,11 @@
 <div class="container mb-3">
-    <div class="container rounded bg-light" >
+  <div class="modal-header container-fluid mb-0">
+    <h1 class="title-light d-inline">Proyectos</h1><fa-icon [icon]="faPlus" class="fa-button-light fa-2x float-right title-light" (click)="openAdd(content)" *ngIf="adminSesion"></fa-icon>
+  </div>
+    <div class="container rounded-bottom bg-light" >
+        <div class="row py-2">
 
-        <h2 class=" pt-3">Proyectos</h2>
-        <button class="btn btn-outline-dark" (click)="openAdd(content)" *ngIf="adminSesion">Crear Nuevo</button>
-        <div class="row">
-
-            <div class="col" *ngFor="let item of proj">
+            <div class="col-6" *ngFor="let item of proj">
               <div class=" my-4 row g-0 rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative bg-dark">
                 <div class="col p-4 d-flex flex-column position-static">
                   <h3 class="mb-0 text-primary">{{item.titulo}}</h3>

@@ -10,6 +10,7 @@
           <img [src]="item.img" [alt]="item.title" [id]="item.title" class="icon img-fluid">
         </a>
       </li>
+      <li class="nav-item"><button class="btn btn-light btn-responsive mx-2" (click)="toggleEditMode()"><b>Admin Mode</b></button></li>
       <li class="nav-item"><button class="btn btn-outline-light btn-responsive" *ngIf="adminSesion == false" (click)="open(content)"><b>LogIn</b></button></li>
       <li class="nav-item"><button class="btn btn-outline-light btn-responsive" *ngIf="adminSesion"(click)="toggleEditMode()"><b>LogOut</b></button></li>
     </ul>
