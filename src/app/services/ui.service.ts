@@ -1,19 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { TokenService } from './token.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UiService {
-  private adminSesion:boolean = false;
+  private adminSesion!:boolean;
   private subject = new Subject<any>();
+  authList! : string[] 
 
-  constructor() { }
+  constructor(private tokenService:TokenService) { }
 
-  toggleEditMode():void{
-    this.adminSesion = !this.adminSesion;
-    this.subject.next(this.adminSesion);
+  isAdminLogged():void{
+    this.tokenService.getAuthorities()
+    this.authList = this.tokenService.getAuthorities()
+    console.log(this.authList)
+    for (var i of this.authList){
+      console.log(i)
+      if( i == "ROLE_ADMIN"){
+        this.adminSesion = true;
+        this.subject.next(this.adminSesion);
+        break
+      }
+      else{
+        this.adminSesion = false;
+      }
+    }
+  }
+
+  getAdminSesion(){
+    return this.adminSesion
   }
  
   onToggle():Observable<any>{

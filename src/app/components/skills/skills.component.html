@@ -9,25 +9,25 @@
         <div class="row text-center my-3">
         <div class="col-sm-12 col-md-6 text-center my-3">
           <label for="titulo">Titulo</label>
-          <input type="text" name="titulo" id="titulo" placeholder="insertar titulo" [(ngModel)]="titulo">
+          <input class="form-control" type="text" name="titulo" id="titulo" placeholder="insertar titulo" [(ngModel)]="titulo">
         </div>
       
         <div class="col-sm-12 col-md-6 text-center my-3">
           <label for="percent">Porcentaje</label>
-          <input type="number" name="percent" id="percent" min="0" max="100" placeholder="Porcentaje" [(ngModel)]="percent">
+          <input class="form-control" type="number" name="percent" id="percent" min="0" max="100" placeholder="Porcentaje" [(ngModel)]="percent">
         </div> 
       
         <div class="col-6 text-center mb-3">
           <label for="color">Color 1</label>
-          <input type="color" [(ngModel)]="color">
+          <input class="form-control" type="color" [(ngModel)]="color">
         </div>  
         <div class="col-6 text-center">
           <label for="colorgr">Color 2</label>
-          <input type="color" [(ngModel)]="colorgr">
+          <input class="form-control" type="color" [(ngModel)]="colorgr">
         </div>
         <div class="col-sm-12 text-center mb-3">
           <label for="img">Imagen</label>
-          <input type="text" [(ngModel)]="img">
+          <input class="form-control" type="text" [(ngModel)]="img">
       </div> 
       <label for="vistaPrev" class="rounded-top mx-auto d-block vistaPrev">Vista Previa</label>
       <div class="rounded-bottom border border-top-0 border-dark p-2">
@@ -67,9 +67,9 @@
       [outerStrokeGradientStopColor]="item.colorgr"
       ></circle-progress>
       <h4 class="text-center"><b>{{item.percent}}%</b></h4>
-      <fa-icon [icon]="faXmark" class="fa-button fa-lg" (click)="onDelete(item)" *ngIf="adminSesion"></fa-icon>
       <fa-icon [icon]="faPencil" class="fa-button fa-lg" (click)="openEdit(item,content)" *ngIf="adminSesion"></fa-icon>
-      </div>
+      <fa-icon [icon]="faTrash" class="fa-button fa-lg" (click)="onDelete(item)" *ngIf="adminSesion"></fa-icon>
+    </div>
       
       </div>
     </div>

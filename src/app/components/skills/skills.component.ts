@@ -3,7 +3,7 @@ import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { faXmark,faPencil,faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTrash,faPencil,faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { faXmark,faPencil,faPlusCircle } from '@fortawesome/free-solid-svg-icons
 export class SkillsComponent implements OnInit {
   url: string = 'skills';
   skill: any [] = [];
-  faXmark = faXmark
+  faTrash = faTrash
   faPencil = faPencil
   faPlus = faPlusCircle
   titulo: string ="";
@@ -31,10 +31,10 @@ export class SkillsComponent implements OnInit {
   editItem:any = "";
 
   constructor(private json: JsonService, private uiService:UiService, private modalService: NgbModal) { 
-    this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
   }
 
   ngOnInit(): void {
+    this.adminSesion = this.uiService.getAdminSesion()
     this.dataLoad()
   }
 

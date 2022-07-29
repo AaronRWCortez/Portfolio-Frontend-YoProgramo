@@ -1,18 +1,18 @@
 <div class="container-fluid sticky-top" id="nav_con" >
 <header class="d-flex flex-wrap justify-content-center rounded-bottom" >
-    <a [href]="logo.link" class="d-flex align-items-center mb-md-0 me-md-auto" *ngFor="let logo of logos">
-      <img [src]="logo.img" [alt]="logo.title" class="bi me-2 logoI img-fluid" [id]="logo.title">
+    <a href="https://www.argentina.gob.ar/produccion/transformacion-digital-y-economia-del-conocimiento/argentina-programa" target="_blank" class="d-flex align-items-center mb-md-0 me-md-auto">
+      <img src="https://github.com/AaronRWCortez/Portfolio-Imagenes-YoProgramo/blob/main/APLogo.png?raw=true" alt="logoAP" class="bi me-2 logoI img-fluid" id="logoAP">
     </a>
 
     <ul class="nav nav-pills align-items-center me-2">
       <li class="nav-item" *ngFor="let item of redes">
-        <a [href]="item.link" class="nav-link">
+        <a [href]="item.enlace" class="nav-link" target="_blank">
           <img [src]="item.img" [alt]="item.title" [id]="item.title" class="icon img-fluid">
         </a>
       </li>
-      <li class="nav-item"><button class="btn btn-light btn-responsive mx-2" (click)="toggleEditMode()"><b>Admin Mode</b></button></li>
-      <li class="nav-item"><button class="btn btn-outline-light btn-responsive" *ngIf="adminSesion == false" (click)="open(content)"><b>LogIn</b></button></li>
-      <li class="nav-item"><button class="btn btn-outline-light btn-responsive" *ngIf="adminSesion"(click)="toggleEditMode()"><b>LogOut</b></button></li>
+      <li class="nav-item"><button class="btn btn-outline-light btn-responsive" *ngIf="!isLogged" (click)="open(content)"><b>LogIn</b></button></li>
+      <li class="nav-item"><button class="btn btn-outline-light btn-responsive" *ngIf="isLogged"(click)="onLogOut()"><b>LogOut</b></button></li>
+      <app-redes-lista></app-redes-lista>
     </ul>
 </header>  
 </div>
@@ -20,23 +20,26 @@
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Ingresar</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click'); clear()"></button>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
-  <div class="modal-body">
+  <form #f="ngForm" (ngSubmit)="onLogin()"  novalidate>
+    <div class="modal-body">
       <div class="mb-3">
-      <div class="text-center my-3">
+        <div class="text-center my-3">
 
-          <label for="titulo">Usuario</label><br>
-          <input type="text" name="titulo" placeholder="Usuario" class="form-control" [(ngModel)]="user"><br>
-          <label for="titulo">Contraseña</label><br>
-          <input type="password" name="titulo" placeholder="Contraseña" class="form-control" [(ngModel)]="pass"><br>
-          
+            <label for="User">Usuario</label><br>
+            <input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="Usuario" class="form-control" [(ngModel)]="nombreUsuario" required><br>
+              
+            <label for="Pass">Contraseña</label><br>
+            <input type="password" id="password" name="password" placeholder="Contraseña" class="form-control form-control-lg" [(ngModel)]="password" required><br>
+              
+        </div>
       </div>
-      </div>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-outline-dark mx-3 my-3"(click)="sesionCall() ; modal.close('Sesion'); clear()">Iniciar Sesión</button>
-  </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline-dark mx-3 my-3" type="submit">Iniciar Sesión</button>
+    </div>
+  </form>
 </ng-template>
 
 

@@ -3,6 +3,7 @@ import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -11,11 +12,12 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./banner.component.css']
 })
 export class BannerComponent implements OnInit {
-  data:any;
-  url: string = 'http://localhost:3000/banner';
-  link: string = ''
+  faPencil = faPencil
 
-  editItem:any = '';
+  data:any;
+  url: string = 'personas';
+  enlace: string = "../../../assets/images/banner.jpg"
+  userID = 1;
 
   adminSesion= false;
   subscription?:Subscription;
@@ -25,36 +27,25 @@ export class BannerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*this.dataLoad()*/
+    this.adminSesion = this.uiService.getAdminSesion()
+    this.dataLoad()
   }
 
   open(content:any) {
     this.modalService.open(content);
   }
-  openEdit(item:any,content:any){
-    this.onEdit(item);
-    this.open(content);
-  }
 
   dataLoad(){
-    this.json.getJson(this.url).subscribe((res:any)=>{
+    this.json.getbyID(this.url,this.userID).subscribe((res:any)=>{
       this.data = res
+      this.enlace = this.data.banner
+      console.log(res)
     })
   }
 
-  onEdit(item:any){
-    this.editItem = item
-    this.unoIgualADos(this,item)
-  }
-
   saveEdit(){
-    this.unoIgualADos(this.editItem,this)
-    this.json.updateItem(this.url,this.editItem).subscribe();
-  }
-
-
-  unoIgualADos(item1:any,item2:any){
-    item1.link = item2.link;
+    this.data.banner = this.enlace
+    this.json.updateItem(this.url,this.data).subscribe();
   }
 
 }

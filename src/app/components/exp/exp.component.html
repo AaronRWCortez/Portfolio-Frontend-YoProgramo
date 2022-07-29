@@ -13,8 +13,8 @@
         <p text="muted" class="d-block text-gray-dark">{{item.descripcion}}</p>
       </div>
       <div class="col-1 d-block">
-        <fa-icon [icon]="faXmark" class="float-right fa-button fa-lg" (click)="onDelete(item)" *ngIf="adminSesion"></fa-icon>
         <fa-icon [icon]="faPencil" class="float-right fa-button fa-lg" (click)="openEdit(item,content)" *ngIf="adminSesion"></fa-icon>
+        <fa-icon [icon]="faTrash" class="float-right fa-button fa-lg" (click)="onDelete(item)" *ngIf="adminSesion"></fa-icon>
       </div>
     </div>
   </div>

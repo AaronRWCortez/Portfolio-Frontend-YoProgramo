@@ -4,21 +4,24 @@
   </div>
     <div class="container rounded-bottom bg-light" >
         <div class="row py-2">
+            <div class="col-lg-6 col-md-12" *ngFor="let item of proj">
 
-            <div class="col-6" *ngFor="let item of proj">
-              <div class=" my-4 row g-0 rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative bg-dark">
-                <div class="col p-4 d-flex flex-column position-static">
-                  <h3 class="mb-0 text-primary">{{item.titulo}}</h3>
-                  <div class="mb-1 text-muted">{{item.fecha}}</div>
-                  <div class="mb-1 text-muted">{{item.enlace}}</div>
+              <div class=" my-4 row g-0 rounded bg-dark">
+                <div class="col-9 p-4 d-flex flex-column position-static">
+                  <h3 class="mb-0 text-primary d-block">{{item.titulo}}</h3>
+                  <p class="mb-1 text-muted d-block">{{item.fecha}}</p>
                   <p class="card-text text-light mb-auto">{{item.descripcion}}</p>
                 </div>
-                <div class="text-center">
+                <div class="col-3 d-block p-4">
+                  
+                  <fa-icon [icon]="faPencil" class=" pt-1 fa-button-light fa-lg title-light" (click)="openEdit(item,content)" *ngIf="adminSesion"></fa-icon>
+                  <fa-icon [icon]="faTrash" class="pt-1 fa-button-light fa-lg title-light" (click)="onDelete(item)" *ngIf="adminSesion"></fa-icon>        
+                  <a [href]="item.enlace" class="btn btn-primary d-block my-1" target="_blank"> Ver Mas</a>
+                </div>
+
+                <div class="text-center col-12">
                   <img class="img-fluid mx-auto d-block p-3" src={{item.img}} alt="">
                 </div>
-                <button  class="btn btn-outline-light" (click)="onDelete(item)" *ngIf="adminSesion">Borrar</button>
-                <button class="btn btn-outline-light" (click)="openEdit(item,content)" *ngIf="adminSesion">Editar</button>
-
               </div>
             </div>            
       </div>

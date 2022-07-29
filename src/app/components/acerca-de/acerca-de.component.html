@@ -1,22 +1,23 @@
-<div>
-<div class="container-fluid">
+
      
 <div class="row bg-body rounded-bottom shadow-sm" id="main_con">
+    <div class="position-relative ">
+            <fa-icon id="editInfo" [icon]="faPencil" class="float-right fa-button fa-lg position-absolute mr-5" (click)="openEdit(info,content)" *ngIf="adminSesion"></fa-icon>
+    </div>
     <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 position-relative " id="img_div" >
         <img [src]="placeHolder" alt="" id="transparente" class="img-fluid">
         <img [src]="info.img" alt="" id="perfil" class="img-fluid img-thumbnail rounded-circle position-absolute top-0 start-50 translate-middle">
         <p class="my-3">{{info.nombre}}<br>{{info.apellido}}</p>
     </div>
-    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 py-2 position-relative" id="nom_con">
-        <label for="title"class="align-middle">{{info.titulo}}</label>
-        <p>{{info.localidad}} <br> <a href="">informacion personal</a></p>
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 py-3 position-relative" id="nom_con">
+        <strong for="title"class="align-middle">{{info.titulo}}</strong>
+        <p>{{info.localidad}} <br> <app-informacion-contacto></app-informacion-contacto></p>
     </div>
-    <div class="col-xs-11 col-sm-8 col-md-8 col-lg-8 p-3 position-relative">
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 p-3 position-relative">
         <h3>Acerca de Mi</h3>
         <span>
             <p>{{info.descripcion}}</p>
         </span>
-        <button class="btn btn-outline-dark" (click)="openEdit(info,content)" *ngIf="adminSesion">Editar</button>
     </div>
 </div>
 

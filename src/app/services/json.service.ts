@@ -40,4 +40,5 @@ export class JsonService {
     const url = `${this.apiUrl}/${list}/crear`    
     return this.http.post<any>(url, item)
   }
+
 }

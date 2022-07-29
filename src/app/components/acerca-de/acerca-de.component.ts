@@ -3,6 +3,7 @@ import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-acerca-de',
@@ -11,6 +12,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class AcercaDeComponent implements OnInit {
   placeHolder =  "../../../assets/images/placeholder.png"
+  faPencil = faPencil
   
   info:any = {
     apellido: "",
@@ -31,13 +33,13 @@ export class AcercaDeComponent implements OnInit {
 
   editItem:any = '';
 
-  adminSesion = true;
+  adminSesion = false;
   subscription?:Subscription;
 
   constructor(private json: JsonService,private uiService:UiService, private modalService: NgbModal) { 
-    this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
   }
   ngOnInit(): void {
+    this.adminSesion = this.uiService.getAdminSesion()
     this.dataLoad()
   }
 

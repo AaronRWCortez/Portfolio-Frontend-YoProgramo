@@ -1,3 +1,25 @@
+<div class="my-3 container">
+  <div class="modal-header container-fluid mb-0">
+    <h1 class="title-light d-inline">Educacion</h1><fa-icon [icon]="faPlus" class="fa-button-light fa-2x float-right title-light" (click)="openAdd(content)" *ngIf="adminSesion"></fa-icon>
+  </div>
+  <div class="p-3 bg-body rounded-bottom shadow-sm">
+    <div class="row small lh-sm d-flex p-3 border-bottom" *ngFor="let item of edu">
+      <div class="col-1">
+        <img class="img-fluid" width="50px" height="50px" [src]="item.img" >
+      </div>
+      <div class="col-10">
+        <strong class="d-block text-gray-dark fs-5">{{item.lugar}}</strong>
+        <strong class="d-block text-gray-dark">{{item.titulo}} ({{item.startDate}} -- {{item.endDate}})</strong>
+        <p text="muted" class="d-block text-gray-dark">{{item.descripcion}}</p>
+      </div>
+      <div class="col-1 d-block">
+        <fa-icon [icon]="faPencil" class="float-right fa-button fa-lg" (click)="openEdit(item,content)" *ngIf="adminSesion"></fa-icon>
+        <fa-icon [icon]="faTrash" class="float-right fa-button fa-lg" (click)="onDelete(item)" *ngIf="adminSesion"></fa-icon>
+      </div>
+    </div>
+  </div>
+</div>
+
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Informacion</h4>
@@ -38,25 +60,6 @@
 </div>
 </ng-template>
 
-
-<div class="my-3 container">
-  <div class="modal-header container-fluid mb-0">
-    <h1 class="title-light d-inline">Educacion</h1><fa-icon [icon]="faPlus" class="fa-button-light fa-2x float-right title-light" (click)="openAdd(content)" *ngIf="adminSesion"></fa-icon>
-  </div>
-  <div class=" p-3 bg-body rounded-bottom shadow-sm">
-    <div class="d-flex p-3 border-bottom" *ngFor="let item of edu">
-      <img class=" my-auto me-3 rounded" width="50px" height="50px" [src]="item.img" >
-      <div class="small lh-sm">
-        <strong class="d-block text-gray-dark fs-5 ">{{item.lugar}}</strong>
-        <strong class="d-block text-gray-dark">{{item.titulo}} ({{item.startDate}} -- {{item.endDate}})</strong>
-        <p text="muted" class="d-block text-gray-dark">{{item.descripcion}}</p>
-      </div>
-      <div class="d-block">
-      <fa-icon [icon]="faXmark" class="float-right fa-button fa-lg" (click)="onDelete(item)" *ngIf="adminSesion"></fa-icon>
-      <fa-icon [icon]="faPencil" class="float-right fa-button fa-lg" (click)="openEdit(item,content)" *ngIf="adminSesion"></fa-icon>
-      </div>
-    </div>
-</div>   
 
 
 

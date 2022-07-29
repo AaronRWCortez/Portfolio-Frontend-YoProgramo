@@ -1,9 +1,12 @@
-<div class="position-relative ">
-<img src="../../../assets/images/banner.jpg" alt="" class="img-fluid">
+<div class="position-relative">
+    <div>
+        <img [src]="enlace" alt="" class="img-fluid" id="banner">
+        <fa-icon id="editBanner" [icon]="faPencil" class="float-right fa-button-light title-light fa-lg position-absolute mr-5" (click)="open(content)" *ngIf="adminSesion"></fa-icon>
+    </div>
+
 </div>
 
-<!--
-<button class="btn btn-outline-light top-50 start-50 translate-middle position-absolute " (click)="openEdit(data[0],content)" *ngIf="adminSesion">Editar</button>
+
 
 
 <ng-template #content let-modal>
@@ -14,7 +17,7 @@
     <div class="modal-body">
         <div class="mb-3">
             <label for="img">Enlace</label><br>
-            <input type="text" class="form-control" [(ngModel)]="link">
+            <input type="text" class="form-control" [(ngModel)]="enlace">
             <br>
         </div>
     </div>
@@ -22,4 +25,3 @@
         <button class="btn btn-outline-dark mx-3 my-3"(click)="saveEdit();  modal.close('Saved Edit')">Guardar</button>
     </div>
   </ng-template>
-  -->

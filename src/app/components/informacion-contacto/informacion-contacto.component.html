@@ -1,0 +1,46 @@
+
+<u (click)="open(content)" id="boton">Informacion de Contacto</u>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title d-inline" id="modal-basic-title">Informacion de Contacto</h4>
+        <fa-icon [icon]="faPlus" class="fa-button-light fa-2x float-right title-light" (click)="onAdd()" *ngIf="adminSesion"></fa-icon>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        
+            <div class="row small lh-sm d-flex border-bottom" *ngFor="let item of infoC">
+                <div class="col-9 my-1">
+                    <strong class="d-block" for="nombre" class="float-right" *ngIf="editItem.id != item.id">{{item.nombre}}</strong>
+                    <label *ngIf="editItem.id != item.id" class="d-block">{{item.valor}} </label>
+                </div>
+                <div class="col-3 d-block my-2">
+                    <fa-icon [icon]="faEye" class="float-right fa-button fa-lg" (click)="cambioV(item)" *ngIf="(adminSesion && editItem.id != item.id) && item.visibilidad == true" ></fa-icon>        
+                    <fa-icon [icon]="faEyeSlash" class="float-right fa-button fa-lg" (click)="cambioV(item)" *ngIf="(adminSesion && editItem.id != item.id) && item.visibilidad == false" ></fa-icon>        
+                    <fa-icon [icon]="faPencil" class="float-right fa-button fa-lg" (click)="onEdit(item)" *ngIf="adminSesion && editItem.id != item.id"></fa-icon>
+                    <fa-icon [icon]="faTrash" class="float-right fa-button fa-lg" (click)="onDelete(item)" *ngIf="adminSesion && editItem.id != item.id"></fa-icon>
+                </div>
+                <div class="col-9 my-1">
+                    <input type="text" class="d-block rounded" placeholder="nombre" [(ngModel)]="editItem.nombre" *ngIf="editItem.id == item.id">
+                    <input type="text" class="form-control d-block" placeholder="valor" [(ngModel)]="editItem.valor" *ngIf="editItem.id == item.id">
+                </div>
+                <div class="col-3 d-block my-2">
+                    <fa-icon [icon]="faFloppyDisk" class="float-right fa-button fa-lg" (click)="saveEdit()" *ngIf="adminSesion && editItem.id == item.id"></fa-icon>
+                    <fa-icon [icon]="faXmark" class="float-right fa-button fa-lg" (click)="setDefault()" *ngIf="adminSesion && editItem.id == item.id"></fa-icon>
+                </div>
+            </div>
+
+
+
+            <div class="row small lh-sm d-flex p-3" *ngIf="addMode == true && editMode == false">
+                <div class="col-9">
+                    <input type="text" class="d-block form-control rounded" placeholder="nombre" [(ngModel)]="editItem.nombre">
+                    <input type="text" class="form-control d-block" placeholder="valor" [(ngModel)]="editItem.valor">
+                </div>
+                <div class="col-3 d-block">
+                    <fa-icon [icon]="faFloppyDisk" class="float-right fa-button fa-lg" (click)="saveAdd()" *ngIf="adminSesion"></fa-icon>
+                    <fa-icon [icon]="faXmark" class="float-right fa-button fa-lg" (click)="modeNull()" *ngIf="adminSesion"></fa-icon>
+                </div>
+            </div>
+    </div>
+</ng-template>

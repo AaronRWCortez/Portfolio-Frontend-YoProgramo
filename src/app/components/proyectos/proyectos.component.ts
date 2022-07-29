@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
-import { Subscription } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { faXmark,faPencil,faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faXmark,faPencil,faPlusCircle,faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-proyectos',
@@ -17,9 +16,7 @@ export class ProyectosComponent implements OnInit {
   url: string = 'proyectos';
 
   
-  adminSesion:boolean = false;
-  subscription?:Subscription;
-  
+  adminSesion:boolean = false;  
   addMode:boolean = false;
   editMode:boolean = false;
 
@@ -31,16 +28,17 @@ export class ProyectosComponent implements OnInit {
   img:string = "../assets/images/portPrj.png";
   enlace:string = "#"
 
+  faTrash = faTrash
   faXmark = faXmark
   faPencil = faPencil
   faPlus = faPlusCircle
 
 
   constructor(private json: JsonService, private uiService:UiService, private modalService: NgbModal) { 
-    this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
   }
 
   ngOnInit(): void {
+    this.adminSesion = this.uiService.getAdminSesion()
     this.dataLoad()
   }
 

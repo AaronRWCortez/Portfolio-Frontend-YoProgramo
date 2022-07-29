@@ -3,7 +3,7 @@ import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { faXmark,faPencil,faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTrash,faPencil,faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-exp',
@@ -21,7 +21,7 @@ export class ExpComponent implements OnInit {
   startDate:string = '';
   endDate:string = '';
   imgBool:boolean = false;
-  img:string = "../../../assets/images/APicon.png";
+  img:string = "https://i.pinimg.com/564x/0e/dd/c0/0eddc09b2b699c507a6cafd30151ceee.jpg";
 
   adminSesion:boolean = false;
   subscription?:Subscription;
@@ -30,16 +30,16 @@ export class ExpComponent implements OnInit {
   addMode:boolean = false;
   editMode:boolean = false;
 
-  faXmark = faXmark
+  faTrash= faTrash
   faPencil = faPencil
   faPlus = faPlusCircle
 
 
   constructor(private json: JsonService, private uiService:UiService, private modalService: NgbModal) { 
-    this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
   }
 
   ngOnInit(): void {
+    this.adminSesion = this.uiService.getAdminSesion()
     this.dataLoad()
   }
   
@@ -107,6 +107,7 @@ export class ExpComponent implements OnInit {
     this.descripcion = '';
     this.startDate = '';
     this.endDate = '';
+    this.img = "https://i.pinimg.com/564x/0e/dd/c0/0eddc09b2b699c507a6cafd30151ceee.jpg";
   }
 
   unoIgualADos(item1:any,item2:any){
@@ -115,5 +116,6 @@ export class ExpComponent implements OnInit {
     item1.descripcion = item2.descripcion;
     item1.startDate = item2.startDate;
     item1.endDate = item2.endDate;
+    item1.img = item2.img;
   }
 }

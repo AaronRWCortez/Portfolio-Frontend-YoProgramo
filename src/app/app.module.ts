@@ -13,9 +13,14 @@ import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EduComponent } from './components/edu/edu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { InfoPComponent } from './components/info-p/info-p.component';
+import { InterceptorService } from './services/interceptor-service';
+import { InformacionContactoComponent } from './components/informacion-contacto/informacion-contacto.component';
+import { RedesListaComponent } from './components/redes-lista/redes-lista.component';
 
 
 @NgModule({
@@ -29,6 +34,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     EduComponent,
     ProyectosComponent,
     FooterComponent,
+    PortfolioComponent,
+    InfoPComponent,
+    InformacionContactoComponent,
+    RedesListaComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,9 +63,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       "showImage": true,
       "showBackground": false
     }),
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [InterceptorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
