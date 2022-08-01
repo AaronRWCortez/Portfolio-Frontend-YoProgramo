@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LoginUsuario } from 'src/app/model/login-usuario';
 import { TokenService } from 'src/app/services/token.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -14,12 +15,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  redes:any [] = [];
-  
-  logos:any [] = [];
+  form:FormGroup;
 
-  urlL: string = 'logos';
-  urlR: string = 'redes-sociales';
+  redes:any [] = [];
+
+  url: string = 'redes-sociales';
 
   adminSesion:boolean = false;
   subscription?:Subscription;
@@ -33,8 +33,16 @@ export class HeaderComponent implements OnInit {
   constructor(
     private json: JsonService, private uiService:UiService, 
     private modalService: NgbModal , private tokenService:TokenService, 
-    private authService:AuthService, private router :Router) { 
+    private authService:AuthService, private router :Router,
+    private formBuilder: FormBuilder ) { 
     this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
+
+    this.form = formBuilder.group(
+      {
+        nombreUsuario:['',[Validators.required]],
+        password:['',[Validators.required]]
+
+      })
   }
 
   ngOnInit(): void {
@@ -49,11 +57,8 @@ export class HeaderComponent implements OnInit {
   }
 
   dataLoad(){
-    this.json.getJson(this.urlR).subscribe((red:any)=>{
+    this.json.getByPersonaID(this.url).subscribe((red:any)=>{
       this.redes = red
-    })
-    this.json.getJson(this.urlL).subscribe((log:any)=>{
-      this.logos = log
     })
   }
 
@@ -85,4 +90,23 @@ export class HeaderComponent implements OnInit {
     this.tokenService.logOut()
     window.location.reload()
   }
+
+  onEnviar(event:Event){
+    event.preventDefault;
+    if(this.form.valid){
+      this.onLogin();
+    }
+    else{
+      this.form.markAllAsTouched();
+    }
+  }
+
+  get NombreUsuario(){
+    return this.form.get('nombreUsuario')
+  }
+
+  get Password(){
+    return this.form.get('password')
+  }
+
 }

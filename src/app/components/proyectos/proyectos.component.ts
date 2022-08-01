@@ -43,7 +43,7 @@ export class ProyectosComponent implements OnInit {
   }
 
   dataLoad(){
-    this.json.getJson(this.url).subscribe((projD:any)=>{
+    this.json.getByPersonaID(this.url).subscribe((projD:any)=>{
       this.proj = projD
     })
   }

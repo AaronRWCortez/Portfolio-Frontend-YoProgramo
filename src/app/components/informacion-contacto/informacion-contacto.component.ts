@@ -48,7 +48,7 @@ export class InformacionContactoComponent implements OnInit {
   }
 
   dataLoad(){
-    this.json.getJson(this.url).subscribe((infoCD:any)=>{
+    this.json.getByPersonaID(this.url).subscribe((infoCD:any)=>{
       this.infoC = infoCD
     })
   }

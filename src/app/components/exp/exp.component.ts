@@ -45,7 +45,7 @@ export class ExpComponent implements OnInit {
   
 
   dataLoad(){
-    this.json.getJson(this.url).subscribe((expD:any)=>{
+    this.json.getByPersonaID(this.url).subscribe((expD:any)=>{
       this.exp = expD
     })
   }

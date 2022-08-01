@@ -11,6 +11,7 @@ const httpOptions = {
 })
 export class JsonService {
   apiUrl: string = 'http://localhost:8080';
+  PersonaID = 1
 
   constructor(private http : HttpClient) { }
   /* se invoca en el constructor */
@@ -22,6 +23,11 @@ export class JsonService {
 
   getbyID(list:any,id:any): Observable<any>{
     const url = `${this.apiUrl}/${list}/traer/${id}`
+    return this.http.get<any>(url)
+  }
+
+  getByPersonaID(list:any): Observable<any>{
+    const url = `${this.apiUrl}/${list}/traer/persona/${this.PersonaID}`
     return this.http.get<any>(url)
   }
 

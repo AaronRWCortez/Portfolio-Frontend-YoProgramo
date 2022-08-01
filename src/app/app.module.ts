@@ -17,7 +17,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EduComponent } from './components/edu/edu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
-import { InfoPComponent } from './components/info-p/info-p.component';
 import { InterceptorService } from './services/interceptor-service';
 import { InformacionContactoComponent } from './components/informacion-contacto/informacion-contacto.component';
 import { RedesListaComponent } from './components/redes-lista/redes-lista.component';
@@ -35,7 +34,6 @@ import { RedesListaComponent } from './components/redes-lista/redes-lista.compon
     ProyectosComponent,
     FooterComponent,
     PortfolioComponent,
-    InfoPComponent,
     InformacionContactoComponent,
     RedesListaComponent,
   ],

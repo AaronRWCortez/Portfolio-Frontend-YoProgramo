@@ -39,7 +39,7 @@ export class SkillsComponent implements OnInit {
   }
 
   dataLoad(){
-    this.json.getJson(this.url).subscribe((skillD:any)=>{
+    this.json.getByPersonaID(this.url).subscribe((skillD:any)=>{
       this.skill = skillD
     })
   }
@@ -88,6 +88,7 @@ export class SkillsComponent implements OnInit {
 
   saveEdit(){
     this.unoIgualADos(this.editItem,this)
+    console.log(this.editItem)
     this.json.updateItem(this.url,this.editItem).subscribe();
   }
 

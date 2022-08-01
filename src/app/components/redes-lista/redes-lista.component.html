@@ -17,6 +17,7 @@
                     <fa-icon [icon]="faPencil" class="float-right fa-button fa-lg" (click)="onEdit(item)" *ngIf="adminSesion && editItem.id != item.id"></fa-icon>
                     <fa-icon [icon]="faTrash" class="float-right fa-button fa-lg" (click)="onDelete(item)" *ngIf="adminSesion && editItem.id != item.id"></fa-icon>
                 </div>
+                
                 <div class="col-9 my-1" >
                     <input type="text" class="d-block form-control rounded" placeholder="nombre" [(ngModel)]="editItem.titulo" *ngIf="adminSesion && editItem.id == item.id">
                     <input type="text" class="form-control d-block" placeholder="enlace" [(ngModel)]="editItem.enlace" *ngIf="adminSesion && editItem.id == item.id">

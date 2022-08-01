@@ -4,6 +4,7 @@ import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -22,8 +23,14 @@ export class BannerComponent implements OnInit {
   adminSesion= false;
   subscription?:Subscription;
 
-  constructor(private json: JsonService,private uiService:UiService, private modalService: NgbModal) { 
+  form:FormGroup;
+
+  constructor(private json: JsonService,private uiService:UiService, private modalService: NgbModal, private formBuilder: FormBuilder) { 
     this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
+    this.form = formBuilder.group(
+      {
+        nombre: [[Validators.required]],
+      })
   }
 
   ngOnInit(): void {
@@ -31,21 +38,37 @@ export class BannerComponent implements OnInit {
     this.dataLoad()
   }
 
+  get Enlace(){
+    return this.form.get('enlace')
+  }
+
   open(content:any) {
     this.modalService.open(content);
   }
 
   dataLoad(){
+    this.userID = this.json.PersonaID
     this.json.getbyID(this.url,this.userID).subscribe((res:any)=>{
       this.data = res
       this.enlace = this.data.banner
-      console.log(res)
     })
   }
 
   saveEdit(){
     this.data.banner = this.enlace
     this.json.updateItem(this.url,this.data).subscribe();
+  }
+  
+
+  onEnviar(event: Event) {
+    event.preventDefault;
+    if (this.form.valid) {
+      this.saveEdit();
+      this.modalService.dismissAll('Editado');
+    }
+    else {
+      this.form.markAllAsTouched();
+    }
   }
 
 }

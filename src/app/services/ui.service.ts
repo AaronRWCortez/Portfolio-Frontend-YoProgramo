@@ -16,9 +16,7 @@ export class UiService {
   isAdminLogged():void{
     this.tokenService.getAuthorities()
     this.authList = this.tokenService.getAuthorities()
-    console.log(this.authList)
     for (var i of this.authList){
-      console.log(i)
       if( i == "ROLE_ADMIN"){
         this.adminSesion = true;
         this.subject.next(this.adminSesion);

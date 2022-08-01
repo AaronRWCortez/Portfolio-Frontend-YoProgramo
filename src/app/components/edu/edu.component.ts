@@ -44,7 +44,7 @@ export class EduComponent implements OnInit {
   }
 
   dataLoad(){
-    this.json.getJson(this.url).subscribe((eduD:any)=>{
+    this.json.getByPersonaID(this.url).subscribe((eduD:any)=>{
       this.edu = eduD
     })
   }

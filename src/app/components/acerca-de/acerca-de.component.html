@@ -1,17 +1,19 @@
-
-     
 <div class="row bg-body rounded-bottom shadow-sm" id="main_con">
     <div class="position-relative ">
-            <fa-icon id="editInfo" [icon]="faPencil" class="float-right fa-button fa-lg position-absolute mr-5" (click)="openEdit(info,content)" *ngIf="adminSesion"></fa-icon>
+        <fa-icon id="editInfo" [icon]="faPencil" class="float-right fa-button fa-lg position-absolute mr-5"
+            (click)="openEdit(info,content)" *ngIf="adminSesion"></fa-icon>
     </div>
-    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 position-relative " id="img_div" >
+    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 position-relative " id="img_div">
         <img [src]="placeHolder" alt="" id="transparente" class="img-fluid">
-        <img [src]="info.img" alt="" id="perfil" class="img-fluid img-thumbnail rounded-circle position-absolute top-0 start-50 translate-middle">
+        <img [src]="info.img" alt="" id="perfil"
+            class="img-fluid img-thumbnail rounded-circle position-absolute top-0 start-50 translate-middle">
         <p class="my-3">{{info.nombre}}<br>{{info.apellido}}</p>
     </div>
     <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 py-3 position-relative" id="nom_con">
-        <strong for="title"class="align-middle">{{info.titulo}}</strong>
-        <p>{{info.localidad}} <br> <app-informacion-contacto></app-informacion-contacto></p>
+        <strong for="title" class="align-middle">{{info.titulo}}</strong>
+        <p>{{info.localidad}} <br>
+            <app-informacion-contacto></app-informacion-contacto>
+        </p>
     </div>
     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 p-3 position-relative">
         <h3>Acerca de Mi</h3>
@@ -21,30 +23,96 @@
     </div>
 </div>
 
-  
+
 <ng-template #content let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Informacion</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        <h4 class="modal-title" id="modal-basic-title">Informacion</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
-    <div class="modal-body">
-        <div class="mb-3">
-            <label for="nombre">Nombre</label><br>
-            <input type="text" class="form-control" placeholder="Nombre/s" [(ngModel)]="nombre"><br>
-            <label for="apellido">Apellido</label><br>
-            <input type="text" class="form-control" placeholder="Apellido/s" [(ngModel)]="apellido"><br>
-            <label for="titulo">Titulo</label><br>
-            <input type="text" class="form-control" placeholder="Titulo" [(ngModel)]="titulo"><br>
-            <label for="localidad">localidad</label><br>
-            <input type="text" class="form-control" placeholder="localidad" [(ngModel)]="localidad"><br>
-            <label for="descripcion">Descripcion</label><br>
-            <textarea type="text" class="form-control" class="form-control" placeholder="Descripcion" [(ngModel)]="descripcion"></textarea><br>
-            <label for="img">Imagen</label><br>
-            <input type="text" class="form-control" [(ngModel)]="img">
-            <br>
+    <form (ngSubmit)="onEnviar($event)" [formGroup]="form">
+        <div class="modal-body">
+            <div class="mb-3">
+                <label for="nombre">Nombre</label><br>
+                <input type="text"
+                    [ngClass]="{'is-invalid' : Nombre?.errors && Nombre?.touched, 'is-valid': !Nombre?.errors && !Nombre?.touched}"
+                    formControlName="nombre" class="form-control" placeholder="Nombre/s" [(ngModel)]="nombre">
+                <div *ngIf="Nombre?.hasError && Nombre?.touched">
+                    <p *ngIf="Nombre?.hasError('required')" class="text-danger">
+                        El nombre es requerido
+                    </p>
+                    <p *ngIf="Nombre?.hasError('maxLength')" class="text-danger">
+                        Se ha superado el limite de caracteres
+                    </p>
+                </div><br>
+
+                <label for="apellido">Apellido</label><br>
+                <input type="text"
+                    [ngClass]="{'is-invalid' : Apellido?.errors && Apellido?.touched, 'is-valid': !Apellido?.errors && !Apellido?.touched}"
+                    formControlName="apellido" class="form-control" placeholder="Apellido/s" [(ngModel)]="apellido">
+                <div *ngIf="Apellido?.hasError && Apellido?.touched">
+                    <p *ngIf="Apellido?.hasError('required')" class="text-danger">
+                        El apellido es requerido
+                    </p>
+                    <p *ngIf="Apellido?.hasError('maxLength')" class="text-danger">
+                        Se ha superado el limite de caracteres
+                    </p>
+                </div><br>
+
+                <label for="titulo">Titulo</label><br>
+                <input type="text"
+                    [ngClass]="{'is-invalid' : Titulo?.errors && Titulo?.touched, 'is-valid': !Titulo?.errors && !Titulo?.touched}"
+                    formControlName="titulo" class="form-control" placeholder="Titulo" [(ngModel)]="titulo">
+                <div *ngIf="Titulo?.hasError && Titulo?.touched">
+                    <p *ngIf="Titulo?.hasError('required')" class="text-danger">
+                        El titulo es requerido
+                    </p>
+                    <p *ngIf="Titulo?.hasError('maxLength')" class="text-danger">
+                        Se ha superado el limite de caracteres
+                    </p>
+                </div><br>
+
+                <label for="localidad">localidad</label><br>
+                <input type="text"
+                    [ngClass]="{'is-invalid' : Localidad?.errors && Localidad?.touched, 'is-valid': !Localidad?.errors && !Localidad?.touched}"
+                    formControlName="localidad" class="form-control" placeholder="localidad" [(ngModel)]="localidad">
+                    <div *ngIf="Localidad?.hasError && Localidad?.touched">
+                        <p *ngIf="Localidad?.hasError('required')" class="text-danger">
+                            La localidad es requerida
+                        </p>
+                        <p *ngIf="Localidad?.hasError('maxLength')" class="text-danger">
+                            Se ha superado el limite de caracteres
+                        </p>
+                    </div><br>
+
+                <label for="descripcion">Descripcion</label><br>
+                <textarea type="text"
+                    [ngClass]="{'is-invalid' : Descripcion?.errors && Descripcion?.touched, 'is-valid': !Descripcion?.errors && !Descripcion?.touched}"
+                    formControlName="descripcion" class="form-control" class="form-control" placeholder="Descripcion"
+                    [(ngModel)]="descripcion"></textarea>
+                    <div *ngIf="Descripcion?.hasError && Descripcion?.touched">
+                        <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
+                            La descripcion es requerida
+                        </p>
+                        <p *ngIf="Descripcion?.hasError('maxLength')" class="text-danger">
+                            Se ha superado el limite de caracteres
+                        </p>
+                    </div><br>
+
+                <label for="img">Imagen</label><br>
+                <input type="text"
+                    [ngClass]="{'is-invalid' : Img?.errors && Img?.touched, 'is-valid': !Img?.errors && !Img?.touched}"
+                    formControlName="img" class="form-control" [(ngModel)]="img">
+                    <div *ngIf="Img?.hasError && Img?.touched">
+                        <p *ngIf="Img?.hasError('required')" class="text-danger">
+                            La foto de perfil es requerida
+                        </p>
+                    </div><br>
+
+                <br>
+            </div>
         </div>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-outline-dark mx-3 my-3"(click)="saveEdit();  modal.close('Saved Edit')">Guardar</button>
-    </div>
-  </ng-template>
+        <div class="modal-footer">
+            <button class="btn btn-outline-dark mx-3 my-3" type="submit">Guardar</button>
+        </div>
+    </form>
+</ng-template>

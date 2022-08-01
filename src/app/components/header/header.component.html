@@ -22,17 +22,25 @@
     <h4 class="modal-title" id="modal-basic-title">Ingresar</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
-  <form #f="ngForm" (ngSubmit)="onLogin()"  novalidate>
+  <form #f="ngForm" (ngSubmit)="onEnviar($event)"  [formGroup]="form">
     <div class="modal-body">
       <div class="mb-3">
         <div class="text-center my-3">
 
             <label for="User">Usuario</label><br>
-            <input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="Usuario" class="form-control" [(ngModel)]="nombreUsuario" required><br>
-              
+            <input type="text" [ngClass]="{'is-invalid' : NombreUsuario?.errors && NombreUsuario?.touched, 'is-valid': !NombreUsuario?.errors && !NombreUsuario?.touched}" formControlName="nombreUsuario" id="nombreUsuario" name="nombreUsuario" placeholder="Usuario" class="form-control" [(ngModel)]="nombreUsuario">
+            <div *ngIf="NombreUsuario?.hasError && NombreUsuario?.touched">
+              <p *ngIf="NombreUsuario?.hasError('required')" class="text-danger">
+                El nombre de usuario es requerido
+              </p>
+            </div><br>  
             <label for="Pass">Contraseña</label><br>
-            <input type="password" id="password" name="password" placeholder="Contraseña" class="form-control form-control-lg" [(ngModel)]="password" required><br>
-              
+            <input type="password" [ngClass]="{'is-invalid' : Password?.errors && Password?.touched, 'is-valid': !Password?.errors && !Password?.touched}" formControlName="password" id="password" name="password" placeholder="Contraseña" class="form-control" [(ngModel)]="password">
+            <div *ngIf="Password?.hasError && Password?.touched">
+              <p *ngIf="Password?.hasError('required')" class="text-danger">
+                La contraseña de usuario es requerido
+              </p>
+            </div> 
         </div>
       </div>
     </div>

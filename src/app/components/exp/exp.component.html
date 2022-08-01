@@ -31,17 +31,21 @@
             
             <div class="text-center my-3">
               <label for="titulo">Empresa</label><br>
-              <input type="text" name="Empresa" class="form-control" placeholder="Nombre Empresa" [(ngModel)]="lugar"><br>
+              <input type="text" name="Empresa" class="form-control" placeholder="Nombre Empresa" [(ngModel)]="lugar"  formControlName="lugar" required><br>
+              
               <label for="titulo">Puesto</label><br>
               <input type="text" name="Puesto" class="form-control" placeholder="Puesto" [(ngModel)]="puesto"><br>
+              
               <label for="titulo">Descripción</label><br>
               <textarea type="text" name="Descripción" class="form-control" placeholder="Descripción" [(ngModel)]="descripcion"></textarea><br>
+              
               <div>
                 <label for="logo">Logo</label>
               <input type="checkbox" name="logo" id="logo" placeholder="Descripción" [(ngModel)]="imgBool"><br>
               <p *ngIf="imgBool">URL:</p>
               <input type="text" name="img" id="img" class="form-control" placeholder="Descripción" *ngIf="imgBool" [(ngModel)]="img"><br>
-              </div>
+              
+            </div>
                 <label for="fecha">Fecha</label><br>
               <div class="row">
                 <div class="col mx-3">

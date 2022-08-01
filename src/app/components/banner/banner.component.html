@@ -1,7 +1,9 @@
 <div class="position-relative">
     <div>
         <img [src]="enlace" alt="" class="img-fluid" id="banner">
-        <fa-icon id="editBanner" [icon]="faPencil" class="float-right fa-button-light title-light fa-lg position-absolute mr-5" (click)="open(content)" *ngIf="adminSesion"></fa-icon>
+        <fa-icon id="editBanner" [icon]="faPencil"
+            class="float-right fa-button-light title-light fa-lg position-absolute mr-5" (click)="open(content)"
+            *ngIf="adminSesion"></fa-icon>
     </div>
 
 </div>
@@ -11,17 +13,25 @@
 
 <ng-template #content let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Informacion</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        <h4 class="modal-title" id="modal-basic-title">Informacion</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
+    <form (ngSubmit)="onEnviar($event)" [formGroup]="form">
     <div class="modal-body">
         <div class="mb-3">
-            <label for="img">Enlace</label><br>
-            <input type="text" class="form-control" [(ngModel)]="enlace">
-            <br>
+            <label for="Enlace">Enlace</label><br>
+            <input type="text"
+                [ngClass]="{'is-invalid' : Enlace?.errors && Enlace?.touched, 'is-valid': !Enlace?.errors && !Enlace?.touched}"
+                formControlName="enlace" class="form-control" [(ngModel)]="enlace">
+            <div *ngIf="Enlace?.hasError && Enlace?.touched">
+                <p *ngIf="Enlace?.hasError('required')" class="text-danger">
+                    Ingrese un enlace para el banner
+                </p>
+            </div><br>
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-outline-dark mx-3 my-3"(click)="saveEdit();  modal.close('Saved Edit')">Guardar</button>
+        <button type="submit" class="btn btn-outline-dark mx-3 my-3">Guardar</button>
     </div>
-  </ng-template>
+    </form>
+</ng-template>
