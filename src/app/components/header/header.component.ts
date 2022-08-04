@@ -8,6 +8,8 @@ import { LoginUsuario } from 'src/app/model/login-usuario';
 import { TokenService } from 'src/app/services/token.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { DefaultImagesService } from 'src/app/services/default-images.service';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +18,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class HeaderComponent implements OnInit {
   form:FormGroup;
+  faAlert = faTriangleExclamation;
 
+  updateList(newItem: any) {
+    this.redes = newItem;
+    console.log(this.redes)
+  }
+  logoAP = this.defaultimg.logoAP
   redes:any [] = [];
 
   url: string = 'redes-sociales';
@@ -26,15 +34,13 @@ export class HeaderComponent implements OnInit {
   isLogged = false;
   isLogginFail = false;
   loginUsuario! :LoginUsuario;
-  nombreUsuario!: string;
-  password!: string;
   roles!: string[];
   errorMsj!: string;
   constructor(
     private json: JsonService, private uiService:UiService, 
     private modalService: NgbModal , private tokenService:TokenService, 
     private authService:AuthService, private router :Router,
-    private formBuilder: FormBuilder ) { 
+    private formBuilder: FormBuilder, private defaultimg : DefaultImagesService ) { 
     this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
 
     this.form = formBuilder.group(
@@ -69,7 +75,7 @@ export class HeaderComponent implements OnInit {
 
 
   onLogin(): void{
-    this.loginUsuario = new LoginUsuario(this.nombreUsuario, this.password); 
+    this.loginUsuario = new LoginUsuario(this.form.value.nombreUsuario, this.form.value.password); 
     this.authService.login(this.loginUsuario).subscribe(data => {
         this.isLogged = true;
         this.isLogginFail = false;
@@ -82,13 +88,30 @@ export class HeaderComponent implements OnInit {
       }, err =>{
         this.isLogged = false;
         this.isLogginFail = true;
-        this.errorMsj = err.error.mensaje;
+        this.errorMsj = err.error.message;
+
       }
     )
   }
+
   onLogOut():void{
     this.tokenService.logOut()
     window.location.reload()
+  }
+
+  restartLogData(){
+    this.isLogged = false;
+    this.isLogginFail = false;
+    this.setDefault()
+  }
+
+  setDefault() {
+    this.form.setValue({
+      nombreUsuario: '',
+      password: '',
+    });
+    this.form.markAsPristine();
+    this.form.markAsUntouched();
   }
 
   onEnviar(event:Event){
@@ -107,6 +130,12 @@ export class HeaderComponent implements OnInit {
 
   get Password(){
     return this.form.get('password')
+  }
+
+  update(val:any){
+    console.log('desde header')
+    console.log(val)
+    this.redes = val
   }
 
 }

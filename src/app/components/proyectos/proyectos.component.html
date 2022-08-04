@@ -1,59 +1,115 @@
 <div class="container mb-3">
   <div class="modal-header container-fluid mb-0">
-    <h1 class="title-light d-inline">Proyectos</h1><fa-icon [icon]="faPlus" class="fa-button-light fa-2x float-right title-light" (click)="openAdd(content)" *ngIf="adminSesion"></fa-icon>
+    <h1 class="title-light d-inline">Proyectos</h1>
+    <fa-icon [icon]="faPlus" class="fa-button-light fa-2x float-right title-light"
+      (click)="openAdd(content); opcionIgualA('add')" *ngIf="adminSesion"></fa-icon>
   </div>
-    <div class="container rounded-bottom bg-light" >
-        <div class="row py-2">
-            <div class="col-lg-6 col-md-12" *ngFor="let item of proj">
+  <div class="container rounded-bottom bg-light">
+    <div class="row py-2">
+      <div class="col-lg-6 col-md-12" *ngFor="let item of proj">
 
-              <div class=" my-4 row g-0 rounded bg-dark">
-                <div class="col-9 p-4 d-flex flex-column position-static">
-                  <h3 class="mb-0 text-primary d-block">{{item.titulo}}</h3>
-                  <p class="mb-1 text-muted d-block">{{item.fecha}}</p>
-                  <p class="card-text text-light mb-auto">{{item.descripcion}}</p>
-                </div>
-                <div class="col-3 d-block p-4">
-                  
-                  <fa-icon [icon]="faPencil" class=" pt-1 fa-button-light fa-lg title-light" (click)="openEdit(item,content)" *ngIf="adminSesion"></fa-icon>
-                  <fa-icon [icon]="faTrash" class="pt-1 fa-button-light fa-lg title-light" (click)="onDelete(item)" *ngIf="adminSesion"></fa-icon>        
-                  <a [href]="item.enlace" class="btn btn-primary d-block my-1" target="_blank"> Ver Mas</a>
-                </div>
+        <div class=" my-4 row g-0 rounded bg-dark">
+          <div class="col-9 p-4 d-flex flex-column position-static">
+            <h3 class="mb-0 text-primary d-block">{{item.titulo}}</h3>
+            <p class="mb-1 text-muted d-block">{{item.fecha}}</p>
+            <p class="card-text text-light mb-auto">{{item.descripcion}}</p>
+          </div>
+          <div class="col-3 d-block p-4">
 
-                <div class="text-center col-12">
-                  <img class="img-fluid mx-auto d-block p-3" src={{item.img}} alt="">
-                </div>
-              </div>
-            </div>            
+            <fa-icon [icon]="faPencil" class=" pt-1 fa-button-light fa-lg title-light" (click)="openEdit(item,content); opcionIgualA('edit')"
+              *ngIf="adminSesion"></fa-icon>
+            <fa-icon [icon]="faTrash" class="pt-1 fa-button-light fa-lg title-light" (click)="onDelete(item)"
+              *ngIf="adminSesion"></fa-icon>
+            <a [href]="item.enlace" class="btn btn-primary d-block my-1" target="_blank"> Ver Mas</a>
+          </div>
+
+          <div class="text-center col-12">
+            <img class="img-fluid mx-auto d-block p-3" src={{item.img}} alt="">
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 
 
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Informacion</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Proyectos</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <form (ngSubmit)="onEnviar($event)" [formGroup]="form">
+    <div class="modal-body">
       <div class="mb-3">
-      <div class="text-center my-3">
+        <div class="text-center my-3">
 
-          <label for="titulo">Proyecto</label><br>
-          <input type="text" name="titulo" placeholder="Nombre proyecto" class="form-control" [(ngModel)]="titulo"><br>
-          <label for="titulo">Fecha</label><br>
-          <input type="text" name="titulo" placeholder="Fecha de Trabajo" class="form-control" [(ngModel)]="fecha"><br>
-          <label for="titulo">Descripción</label><br>
-          <textarea type="text" name="titulo" placeholder="Descripción" class="form-control" [(ngModel)]="descripcion"></textarea><br>
-          <label for="titulo">enlace</label><br>
-          <input type="text" name="titulo" placeholder="enlace" class="form-control" [(ngModel)]="enlace"><br>
-          <label for="logo">Imagen</label><br>
-          <input type="text" name="img" id="img" placeholder="Imagen" class="form-control" [(ngModel)]="img">
-          <br>
+          <label for="Titulo">Titulo</label><br>
+          <input type="text"
+            [ngClass]="{'is-invalid' : Titulo?.errors && Titulo?.touched, 'is-valid': !Titulo?.errors && Titulo?.touched}"
+            formControlName="titulo" class="form-control" placeholder="Titulo">
+          <div *ngIf="Titulo?.hasError && Titulo?.touched">
+            <p *ngIf="Titulo?.hasError('required')" class="text-danger">
+              Este campo es obligatorio
+            </p>
+            <p *ngIf="Titulo?.errors?.['maxlength']" class="text-danger">
+              Se ha superado el limite de caracteres
+            </p>
+          </div><br>
+
+          <label for="Fecha">Fecha</label><br>
+          <input type="text"
+            [ngClass]="{'is-invalid' : Fecha?.errors && Fecha?.touched, 'is-valid': !Fecha?.errors && Fecha?.touched}"
+            formControlName="fecha" class="form-control" class="form-control"
+            placeholder="Fecha">
+          <div *ngIf="Fecha?.hasError && Fecha?.touched">
+            <p *ngIf="Fecha?.errors?.['maxlength']" class="text-danger">
+              Se ha superado el limite de caracteres
+            </p>
+          </div><br>
+
+          <label for="Descripcion">Descripcion</label><br>
+          <textarea type="text"
+            [ngClass]="{'is-invalid' : Descripcion?.errors && Descripcion?.touched, 'is-valid': !Descripcion?.errors && Descripcion?.touched}"
+            formControlName="descripcion" class="form-control" class="form-control"
+            placeholder="Descripcion"></textarea>
+          <div *ngIf="Descripcion?.hasError && Descripcion?.touched">
+            <p *ngIf="Descripcion?.errors?.['maxlength']" class="text-danger">
+              Se ha superado el limite de caracteres
+            </p>
+          </div><br>
           
+          <label for="Enlace">Enlace</label><br>
+          <input type="text"
+            [ngClass]="{'is-invalid' : Enlace?.errors && Enlace?.touched, 'is-valid': !Enlace?.errors && Enlace?.touched}"
+            formControlName="enlace" class="form-control" placeholder="Enlace">
+          <div *ngIf="Enlace?.hasError && Enlace?.touched">
+            <p *ngIf="Enlace?.hasError('required')" class="text-danger">
+              Este campo es obligatorio
+            </p>
+            <p *ngIf="Enlace?.errors?.['maxlength']" class="text-danger">
+              Se ha superado el limite de caracteres
+            </p>
+          </div><br>
+
+          <label for="Img">Imagen</label><br>
+          <input type="text"
+            [ngClass]="{'is-invalid' : Img?.errors && Img?.touched, 'is-valid': !Img?.errors && Img?.touched}"
+            formControlName="img" class="form-control" placeholder="Img">
+          <div *ngIf="Img?.hasError && Img?.touched">
+            <p *ngIf="Img?.hasError('required')" class="text-danger">
+              Este campo es obligatorio
+            </p>
+            <p *ngIf="Img?.errors?.['maxlength']" class="text-danger">
+              Se ha superado el limite de caracteres
+            </p>
+          </div><br>
+
+
+        </div>
       </div>
-      </div>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-outline-dark mx-3 my-3"(click)="saveAdd(); modal.close('Saved New')" *ngIf="addMode && !editMode">guardar Nuevo</button>
-    <button class="btn btn-outline-dark mx-3 my-3"(click)="saveEdit(); modal.close('Saved Edit')" *ngIf="!addMode && editMode">guardar Edit</button>
-  </div>
-</ng-template>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark mx-3 my-3" *ngIf="opcion == 'add'">Guardar Nuevo</button>
+      <button type="submit" class="btn btn-outline-dark mx-3 my-3" *ngIf="opcion == 'edit'">Guardar Cambios</button>
+    </div>
+  </form>
+  </ng-template>

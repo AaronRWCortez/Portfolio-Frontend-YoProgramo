@@ -1,18 +1,23 @@
 <div class="container-fluid sticky-top" id="nav_con" >
 <header class="d-flex flex-wrap justify-content-center rounded-bottom" >
     <a href="https://www.argentina.gob.ar/produccion/transformacion-digital-y-economia-del-conocimiento/argentina-programa" target="_blank" class="d-flex align-items-center mb-md-0 me-md-auto">
-      <img src="https://github.com/AaronRWCortez/Portfolio-Imagenes-YoProgramo/blob/main/APLogo.png?raw=true" alt="logoAP" class="bi me-2 logoI img-fluid" id="logoAP">
+      <img [src]="logoAP" alt="Argentina Programa" class="bi me-2 logoI img-fluid" id="logoAP">
     </a>
 
     <ul class="nav nav-pills align-items-center me-2">
-      <li class="nav-item" *ngFor="let item of redes">
+      <li class="nav-item redesItem" *ngFor="let item of redes">
         <a [href]="item.enlace" class="nav-link" target="_blank">
-          <img [src]="item.img" [alt]="item.title" [id]="item.title" class="icon img-fluid">
+          <img [src]="item.img" [alt]="item.title" [alt]="item.titulo" class="icon img-fluid">
         </a>
       </li>
+      <app-redes-lista
+      (updateEvent)="updateList($event)"
+      ></app-redes-lista>
       <li class="nav-item"><button class="btn btn-outline-light btn-responsive" *ngIf="!isLogged" (click)="open(content)"><b>LogIn</b></button></li>
       <li class="nav-item"><button class="btn btn-outline-light btn-responsive" *ngIf="isLogged"(click)="onLogOut()"><b>LogOut</b></button></li>
-      <app-redes-lista></app-redes-lista>
+
+
+      
     </ul>
 </header>  
 </div>
@@ -20,25 +25,34 @@
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Ingresar</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click') ; restartLogData()"></button>
   </div>
   <form #f="ngForm" (ngSubmit)="onEnviar($event)"  [formGroup]="form">
     <div class="modal-body">
       <div class="mb-3">
         <div class="text-center my-3">
+            <div *ngIf="isLogginFail == true" class="container-fluid border rounded border-danger text-center mb-2">
+              <p class="text-danger pt-2">
+                <fa-icon [icon]="faAlert"></fa-icon>
+                <strong>
+                  El usuario o  la contraseña no son correctos
+                </strong>
+                
+              </p>
+            </div>
 
             <label for="User">Usuario</label><br>
-            <input type="text" [ngClass]="{'is-invalid' : NombreUsuario?.errors && NombreUsuario?.touched, 'is-valid': !NombreUsuario?.errors && !NombreUsuario?.touched}" formControlName="nombreUsuario" id="nombreUsuario" name="nombreUsuario" placeholder="Usuario" class="form-control" [(ngModel)]="nombreUsuario">
+            <input type="text" [ngClass]="{'is-invalid' : NombreUsuario?.errors && NombreUsuario?.touched, 'is-valid': !NombreUsuario?.errors && !NombreUsuario?.touched}" formControlName="nombreUsuario" id="nombreUsuario" name="nombreUsuario" placeholder="Usuario" class="form-control" >
             <div *ngIf="NombreUsuario?.hasError && NombreUsuario?.touched">
               <p *ngIf="NombreUsuario?.hasError('required')" class="text-danger">
                 El nombre de usuario es requerido
               </p>
             </div><br>  
             <label for="Pass">Contraseña</label><br>
-            <input type="password" [ngClass]="{'is-invalid' : Password?.errors && Password?.touched, 'is-valid': !Password?.errors && !Password?.touched}" formControlName="password" id="password" name="password" placeholder="Contraseña" class="form-control" [(ngModel)]="password">
+            <input type="password" [ngClass]="{'is-invalid' : Password?.errors && Password?.touched, 'is-valid': !Password?.errors && !Password?.touched}" formControlName="password" id="password" name="password" placeholder="Contraseña" class="form-control">
             <div *ngIf="Password?.hasError && Password?.touched">
               <p *ngIf="Password?.hasError('required')" class="text-danger">
-                La contraseña de usuario es requerido
+                La contraseña es requerida
               </p>
             </div> 
         </div>

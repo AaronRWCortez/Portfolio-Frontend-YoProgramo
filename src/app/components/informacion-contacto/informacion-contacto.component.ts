@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import { faXmark,faPencil,faPlusCircle, faTrash, faFloppyDisk, faEye,faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import { isNgTemplate } from '@angular/compiler';
+import { Persona } from 'src/app/model/persona';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { InfoContacto } from 'src/app/model/infoContacto';
 
 
 @Component({
@@ -13,7 +16,7 @@ import { isNgTemplate } from '@angular/compiler';
 })
 
 export class InformacionContactoComponent implements OnInit {
-  
+
   faXmark = faXmark
   faPencil = faPencil
   faPlus = faPlusCircle
@@ -24,33 +27,66 @@ export class InformacionContactoComponent implements OnInit {
 
   adminSesion :boolean = false;
   url: string = 'infoContacto';
+  persona!: Persona;
+
   addMode = false
   editMode = false
+  editItem!: InfoContacto;
+  itemID = undefined;
 
-  editItem = 
-  { id : undefined,
-    nombre : null,
-    valor : null,
-    visibilidad : true
-  }; ; 
   nombre:string = '';
   valor:string = '';
 
 
   infoC:any = [];
+  form: FormGroup;
+  opcion = '';
 
-
-  constructor(private json: JsonService,private uiService:UiService, private modalService: NgbModal) { }
+  constructor(private json: JsonService, private uiService: UiService, private modalService: NgbModal, private formBuilder: FormBuilder) {
+    this.form = formBuilder.group(
+      {
+        nombre: ['', [Validators.required, Validators.maxLength(50)]],
+        valor: ['', [Validators.required, Validators.maxLength(50)]],
+      })
+  }
 
   ngOnInit(): void {
     this.adminSesion = this.uiService.getAdminSesion()
     this.dataLoad()
   }
 
-  dataLoad(){
-    this.json.getByPersonaID(this.url).subscribe((infoCD:any)=>{
+  get Nombre() {
+    return this.form.get('nombre')
+  }
+  get Valor() {
+    return this.form.get('valor')
+  }
+
+  dataLoad() {
+    this.json.getbyID('personas', this.json.PersonaID).subscribe((personaD) =>
+      this.persona = personaD
+    )
+    this.json.getByPersonaID(this.url).subscribe((infoCD: any) => {
       this.infoC = infoCD
     })
+  }
+
+  onAdd() {
+    this.addMode = true
+    this.editMode = false
+    this.setDefault()
+  }
+
+  saveAdd() {
+    const infoContacto = new InfoContacto
+    this.unoIgualADos(infoContacto, this.form.value)
+    infoContacto.persona = this.persona
+    infoContacto.visibilidad = true
+    console.log(infoContacto)
+    this.json.addItem(this.url, infoContacto).subscribe((newItem) => {
+      this.infoC.push(newItem);
+      this.modeNull()
+    });
   }
 
   open(content:any) {
@@ -63,27 +99,17 @@ export class InformacionContactoComponent implements OnInit {
     this.setDefault()
   }
 
-  onAdd(){
-    this.addMode = true
-    this.editMode = false
-    this.setDefault()
-  }
-
-  saveAdd(){
-    this.json.addItem(this.url,this.editItem).subscribe((Item)=>{
-      this.infoC.push(Item);
-    });
-    this.modeNull()
-    }
-  
 
   onEdit(item:any){
     this.addMode = false
     this.editMode = true
     this.editItem = item;
+    this.itemID = item.id
+    this.setValue()
   }
 
   saveEdit(){
+    this.unoIgualADos(this.editItem,this.form.value)
     this.json.updateItem(this.url,this.editItem).subscribe();
     this.modeNull()
   }
@@ -94,14 +120,28 @@ export class InformacionContactoComponent implements OnInit {
       ])
   }
 
+  setValue() {
+    this.form.markAsUntouched();
+    this.form.setValue({
+      nombre: this.editItem.nombre,
+      valor: this.editItem.valor
+    })
+  }
+
+  cancel(){
+    this.itemID = undefined
+    this.opcion = ''
+  }
 
   setDefault(){
-    this.editItem = 
-    { id : undefined,
-      nombre : null,
-      valor : null,
-      visibilidad : true
-    }; 
+    this.itemID = undefined
+    this.form.setValue({ 
+      nombre : '',
+      valor : ''
+    }); 
+  ;
+  this.form.markAsPristine();
+  this.form.markAsUntouched();
   }
 
   cambioV(item:any){
@@ -113,8 +153,33 @@ export class InformacionContactoComponent implements OnInit {
 
   unoIgualADos(item1:any,item2:any){
     item1.nombre = item2.nombre;
-    item1.descripcion = item2.descripcion;
-    item1.startDate = item2.startDate;
+    item1.valor = item2.valor;
   }
 
+  
+  opcionIgualA(valor: string) {
+    this.opcion = valor;
+  }
+
+
+
+  onEnviar(event: Event) {
+    event.preventDefault;
+    if (this.form.valid) {
+      switch (this.opcion) {
+        case 'edit':
+          this.saveEdit();
+          break
+        case 'add':
+          this.saveAdd();
+          break
+      }
+      this.cancel();
+
+
+    }
+    else {
+      this.form.markAllAsTouched();
+    }
+  }
 }

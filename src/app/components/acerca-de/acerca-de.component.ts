@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DefaultImagesService } from 'src/app/services/default-images.service';
 
 @Component({
   selector: 'app-acerca-de',
@@ -15,22 +16,9 @@ export class AcercaDeComponent implements OnInit {
   placeHolder = "../../../assets/images/placeholder.png"
   faPencil = faPencil
 
-  info: any = {
-    apellido: "",
-    descripcion: "",
-    img: "../../../assets/images/PH.png",
-    localidad: "",
-    nombre: "",
-    titulo: "",
-  };
+
   url: string = 'personas';
   userID: number = 1;
-  nombre: string = '';
-  apellido: string = '';
-  titulo: string = '';
-  localidad: string = '';
-  descripcion: string = '';
-  img: string = '';
 
   editItem: any = '';
 
@@ -38,20 +26,31 @@ export class AcercaDeComponent implements OnInit {
   subscription?: Subscription;
 
   form: FormGroup;
+  info: any = {
+    apellido: "",
+    descripcion: "",
+    img: this.defaultImg.perfil,
+    localidad: "",
+    nombre: "",
+    titulo: "",
+  };
+  loaded = false
 
-  constructor(private json: JsonService, private uiService: UiService, private modalService: NgbModal, private formBuilder: FormBuilder) {
+  constructor(private json: JsonService, private uiService: UiService, private modalService: NgbModal, private formBuilder: FormBuilder, private defaultImg : DefaultImagesService) {
 
     this.form = formBuilder.group(
       {
-        nombre: [null,[Validators.required, Validators.maxLength(50)]],
-        apellido: [null,[Validators.required, Validators.maxLength(50)]],
-        titulo: [null,[Validators.required, Validators.maxLength(50)]],
-        localidad: [null,[Validators.required, Validators.maxLength(50)]],
-        descripcion: [null,[Validators.required, Validators.maxLength(500)]],
-        img: [null,[Validators.required]]
+        nombre: ['', [Validators.required, Validators.maxLength(50)]],
+        apellido: ['', [Validators.required, Validators.maxLength(50)]],
+        titulo: ['', [Validators.required, Validators.maxLength(50)]],
+        localidad: ['', [Validators.required, Validators.maxLength(50)]],
+        descripcion: ['', [Validators.required, Validators.maxLength(500)]],
+        img: ['', [Validators.required]]
       })
 
   }
+
+
   ngOnInit(): void {
     this.adminSesion = this.uiService.getAdminSesion()
     this.dataLoad()
@@ -81,29 +80,41 @@ export class AcercaDeComponent implements OnInit {
     return this.form.get('img')
   }
 
+  setValue() {
+    this.form.setValue({
+      apellido: this.editItem.apellido,
+      descripcion: this.editItem.descripcion,
+      img: this.editItem.img,
+      localidad: this.editItem.localidad,
+      nombre: this.editItem.nombre,
+      titulo: this.editItem.titulo,
+    });
+  }
+
   open(content: any) {
     this.modalService.open(content);
   }
   openEdit(item: any, content: any) {
-    this.onEdit(item);
+    this.onEdit();
     this.open(content);
   }
 
   dataLoad() {
-
     this.userID = this.json.PersonaID
     this.json.getbyID(this.url, this.userID).subscribe((res: any) => {
       this.info = res
+      this.loaded = true
     })
   }
 
-  onEdit(item: any) {
-    this.editItem = item
-    this.unoIgualADos(this, item)
+  onEdit() {
+    this.editItem = this.info
+    this.form.markAllAsTouched();
+    this.setValue()
   }
 
   saveEdit() {
-    this.unoIgualADos(this.editItem, this)
+    this.unoIgualADos(this.editItem, this.form.value)
     this.json.updateItem(this.url, this.editItem).subscribe();
   }
 

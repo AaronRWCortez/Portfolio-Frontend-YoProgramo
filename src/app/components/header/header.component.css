@@ -9,3 +9,14 @@
 .icon{
     width: 50px;
 }
+
+.redesItem{
+    display: list-item;
+}
+
+@media(max-width: 575px) {
+.redesItem {
+    display: none;
+}
+    
+}

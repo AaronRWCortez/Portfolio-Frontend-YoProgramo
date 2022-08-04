@@ -1,46 +1,113 @@
-
 <u (click)="open(content)" id="boton">Informacion de Contacto</u>
 
 <ng-template #content let-modal>
     <div class="modal-header">
-        <h4 class="modal-title d-inline" id="modal-basic-title">Informacion de Contacto</h4>
-        <fa-icon [icon]="faPlus" class="fa-button-light fa-2x float-right title-light" (click)="onAdd()" *ngIf="adminSesion"></fa-icon>
+        <h4 class="modal-title" id="modal-basic-title">Informacion</h4>
+        <fa-icon [icon]="faPlus" class="fa-button-light fa-2x float-right title-light" (click)="onAdd() ; opcionIgualA('add')"
+            *ngIf="adminSesion"></fa-icon>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
+
     <div class="modal-body">
-        
-            <div class="row small lh-sm d-flex border-bottom" *ngFor="let item of infoC">
-                <div class="col-9 my-1">
-                    <strong class="d-block" for="nombre" class="float-right" *ngIf="editItem.id != item.id">{{item.nombre}}</strong>
-                    <label *ngIf="editItem.id != item.id" class="d-block">{{item.valor}} </label>
-                </div>
-                <div class="col-3 d-block my-2">
-                    <fa-icon [icon]="faEye" class="float-right fa-button fa-lg" (click)="cambioV(item)" *ngIf="(adminSesion && editItem.id != item.id) && item.visibilidad == true" ></fa-icon>        
-                    <fa-icon [icon]="faEyeSlash" class="float-right fa-button fa-lg" (click)="cambioV(item)" *ngIf="(adminSesion && editItem.id != item.id) && item.visibilidad == false" ></fa-icon>        
-                    <fa-icon [icon]="faPencil" class="float-right fa-button fa-lg" (click)="onEdit(item)" *ngIf="adminSesion && editItem.id != item.id"></fa-icon>
-                    <fa-icon [icon]="faTrash" class="float-right fa-button fa-lg" (click)="onDelete(item)" *ngIf="adminSesion && editItem.id != item.id"></fa-icon>
-                </div>
-                <div class="col-9 my-1">
-                    <input type="text" class="d-block rounded" placeholder="nombre" [(ngModel)]="editItem.nombre" *ngIf="editItem.id == item.id">
-                    <input type="text" class="form-control d-block" placeholder="valor" [(ngModel)]="editItem.valor" *ngIf="editItem.id == item.id">
-                </div>
-                <div class="col-3 d-block my-2">
-                    <fa-icon [icon]="faFloppyDisk" class="float-right fa-button fa-lg" (click)="saveEdit()" *ngIf="adminSesion && editItem.id == item.id"></fa-icon>
-                    <fa-icon [icon]="faXmark" class="float-right fa-button fa-lg" (click)="setDefault()" *ngIf="adminSesion && editItem.id == item.id"></fa-icon>
+        <div class="mb-3">
+            <div class="my-3">
+                <div *ngFor="let item of infoC" >
+                    <div *ngIf="itemID != item.id || opcion != 'edit'">
+                    <div class="row mb-2 border-bottom" *ngIf="adminSesion || item.visibilidad == true" >
+                    <div class="col-9">
+                        <h5 class="mb-0 text-primary d-block">{{item.nombre}}</h5>
+                        <p class="mb-1 text-muted d-block">{{item.valor}}</p>
+                    </div>
+                    <div class="col-3" *ngIf="adminSesion">
+                        <fa-icon [icon]="faEye" class=" pt-1 fa-button fa-lg"
+                        (click)="cambioV(item)" *ngIf="adminSesion && item.visibilidad == true"></fa-icon>
+                        <fa-icon [icon]="faEyeSlash" class=" pt-1 fa-button fa-lg"
+                        (click)="cambioV(item)" *ngIf="adminSesion && item.visibilidad == false"></fa-icon>
+
+                        <fa-icon [icon]="faPencil" class=" pt-1 fa-button fa-lg"
+                            (click)="onEdit(item) ;opcionIgualA('edit')" *ngIf="adminSesion"></fa-icon>
+                        <fa-icon [icon]="faTrash" class="pt-1 fa-button fa-lgt"
+                            (click)="onDelete(item)" *ngIf="adminSesion"></fa-icon>
+                    </div>
+                    </div>
+                </div >
+                    <div *ngIf="opcion == 'edit' && itemID == item.id">
+                        <form (ngSubmit)="onEnviar($event)" [formGroup]="form">
+                            <div class="row border-bottom pb-2" *ngIf="adminSesion">
+                                <div class="col-9">
+                                    <input type="text"
+                                        [ngClass]="{'is-invalid' : Nombre?.errors && Nombre?.touched, 'is-valid': !Nombre?.errors && Nombre?.touched}"
+                                        formControlName="nombre" class="form-control" placeholder="Nombre">
+                                    <div *ngIf="Nombre?.hasError && Nombre?.touched">
+                                        <p *ngIf="Nombre?.hasError('required')" class="text-danger">
+                                            Este campo es obligatorio
+                                        </p>
+                                        <p *ngIf="Nombre?.errors?.['maxlength']" class="text-danger">
+                                            Se ha superado el limite de caracteres
+                                        </p>
+                                    </div>
+            
+                                    <input type="text"
+                                        [ngClass]="{'is-invalid' : Valor?.errors && Valor?.touched, 'is-valid': !Valor?.errors && Valor?.touched}"
+                                        formControlName="valor" class="form-control" class="form-control" placeholder="Valor">
+                                    <div *ngIf="Valor?.hasError && Valor?.touched">
+                                        <p *ngIf="Valor?.hasError('required')" class="text-danger">
+                                            Este campo es obligatorio
+                                        </p>
+                                        <p *ngIf="Valor?.errors?.['maxlength']" class="text-danger">
+                                            Se ha superado el limite de caracteres
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <button type="submit" class="btn btn-glass d-inline" ><fa-icon [icon]="faFloppyDisk" class=" pt-1 fa-button fa-lg"></fa-icon></button>
+
+                                    <fa-icon (click)="cancel()" [icon]="faXmark" class="pt-3 fa-button fa-lg"></fa-icon>
+                                    
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
+            <div *ngIf="opcion == 'add'">
+            <form (ngSubmit)="onEnviar($event)" [formGroup]="form">
+                <div class="row" *ngIf="adminSesion">
+                    <div class="col-9">
+                        <label for="Nombre">Nombre</label><br>
+                        <input type="text"
+                            [ngClass]="{'is-invalid' : Nombre?.errors && Nombre?.touched, 'is-valid': !Nombre?.errors && Nombre?.touched}"
+                            formControlName="nombre" class="form-control" placeholder="Nombre">
+                        <div *ngIf="Nombre?.hasError && Nombre?.touched">
+                            <p *ngIf="Nombre?.hasError('required')" class="text-danger">
+                                Este campo es obligatorio
+                            </p>
+                            <p *ngIf="Nombre?.errors?.['maxlength']" class="text-danger">
+                                Se ha superado el limite de caracteres
+                            </p>
+                        </div>
 
+                        <label for="Valor">Valor</label><br>
+                        <input type="text"
+                            [ngClass]="{'is-invalid' : Valor?.errors && Valor?.touched, 'is-valid': !Valor?.errors && Valor?.touched}"
+                            formControlName="valor" class="form-control" class="form-control" placeholder="Valor">
+                        <div *ngIf="Valor?.hasError && Valor?.touched">
+                            <p *ngIf="Valor?.hasError('required')" class="text-danger">
+                                Este campo es obligatorio
+                            </p>
+                            <p *ngIf="Valor?.errors?.['maxlength']" class="text-danger">
+                                Se ha superado el limite de caracteres
+                            </p>
+                        </div><br>
+                    </div>
+                    <div class="col-3">
+                        <button type="submit" class="btn btn-glass d-inline" ><fa-icon [icon]="faFloppyDisk" class=" pt-1 fa-button fa-lg"></fa-icon></button>
 
-
-            <div class="row small lh-sm d-flex p-3" *ngIf="addMode == true && editMode == false">
-                <div class="col-9">
-                    <input type="text" class="d-block form-control rounded" placeholder="nombre" [(ngModel)]="editItem.nombre">
-                    <input type="text" class="form-control d-block" placeholder="valor" [(ngModel)]="editItem.valor">
+                        <fa-icon (click)="cancel()" [icon]="faXmark" class="pt-3 fa-button fa-lg"></fa-icon>
+                    </div>
                 </div>
-                <div class="col-3 d-block">
-                    <fa-icon [icon]="faFloppyDisk" class="float-right fa-button fa-lg" (click)="saveAdd()" *ngIf="adminSesion"></fa-icon>
-                    <fa-icon [icon]="faXmark" class="float-right fa-button fa-lg" (click)="modeNull()" *ngIf="adminSesion"></fa-icon>
-                </div>
-            </div>
+            </form>
+        </div>
+        </div>
     </div>
 </ng-template>

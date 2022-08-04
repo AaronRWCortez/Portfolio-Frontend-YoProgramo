@@ -1,0 +1,10 @@
+.redesBoton{
+    display: none;
+}
+
+@media(max-width: 575px) {
+.redesBoton {
+    display: list-item;
+}
+    
+}

@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DefaultImagesService } from 'src/app/services/default-images.service';
 
 
 @Component({
@@ -15,9 +16,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class BannerComponent implements OnInit {
   faPencil = faPencil
 
-  data:any;
+  data: any = {
+    banner: this.defaultimg.banner,
+  };
   url: string = 'personas';
-  enlace: string = "../../../assets/images/banner.jpg"
   userID = 1;
 
   adminSesion= false;
@@ -25,11 +27,11 @@ export class BannerComponent implements OnInit {
 
   form:FormGroup;
 
-  constructor(private json: JsonService,private uiService:UiService, private modalService: NgbModal, private formBuilder: FormBuilder) { 
+  constructor(private json: JsonService,private uiService:UiService, private modalService: NgbModal, private formBuilder: FormBuilder, private defaultimg : DefaultImagesService) { 
     this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
     this.form = formBuilder.group(
       {
-        nombre: [[Validators.required]],
+        banner: ['',[Validators.required]],
       })
   }
 
@@ -38,25 +40,27 @@ export class BannerComponent implements OnInit {
     this.dataLoad()
   }
 
-  get Enlace(){
-    return this.form.get('enlace')
+  get Banner(){
+    return this.form.get('Banner')
   }
 
   open(content:any) {
+    this.setValue()
     this.modalService.open(content);
   }
 
-  dataLoad(){
+  dataLoad() {
     this.userID = this.json.PersonaID
-    this.json.getbyID(this.url,this.userID).subscribe((res:any)=>{
+    this.json.getbyID(this.url, this.userID).subscribe((res: any) => {
       this.data = res
-      this.enlace = this.data.banner
     })
   }
 
   saveEdit(){
-    this.data.banner = this.enlace
-    this.json.updateItem(this.url,this.data).subscribe();
+    this.data.banner = this.form.value.banner
+    this.json.updateItem(this.url,this.data).subscribe((persona)=>
+    this.data.banner = persona.banner
+    );
   }
   
 
@@ -69,6 +73,12 @@ export class BannerComponent implements OnInit {
     else {
       this.form.markAllAsTouched();
     }
+  }
+
+  setValue() {
+    this.form.setValue({
+      banner: this.data.banner,
+    });
   }
 
 }

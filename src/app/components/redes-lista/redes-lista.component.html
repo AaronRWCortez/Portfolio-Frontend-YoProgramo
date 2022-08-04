@@ -1,52 +1,156 @@
-<li class="nav-item"><fa-icon [icon]="faGear" class="float-right fa-button-light title-light fa-lg mx-3" (click)="open(content)" *ngIf="adminSesion"></fa-icon></li>
-
+<li class="nav-item">
+    <fa-icon [icon]="faPenToSquare" *ngIf="adminSesion" class="float-right fa-button-light title-light fa-lg mx-3" (click)="open(content)"></fa-icon>
+    <fa-icon [icon]="faList" *ngIf="!adminSesion" class="redesBoton float-right fa-button-light title-light fa-lg mx-3" (click)="open(content)"></fa-icon>
+</li>
 <ng-template #content let-modal>
     <div class="modal-header">
-        <h4 class="modal-title d-inline" id="modal-basic-title">Redes Sociales</h4>
-        <fa-icon [icon]="faPlus" class="fa-button-light fa-2x float-right title-light" (click)="onAdd()" *ngIf="adminSesion"></fa-icon>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click'); saveChanges()"></button>
+        <h4 class="modal-title" id="modal-basic-title">Redes Sociales</h4>
+        <fa-icon [icon]="faPlus" class="fa-button-light fa-2x float-right title-light"
+            (click)="onAdd() ; opcionIgualA('add')" *ngIf="adminSesion"></fa-icon>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click') ; setDefault()"></button>
+
     </div>
+
     <div class="modal-body">
-        
-            <div class="row small lh-sm d-flex border-bottom" *ngFor="let item of redes">
-                <div class="col-9 my-1">
-                    <strong class="d-block" for="nombre" class="float-right" *ngIf="editItem.id != item.id">{{item.titulo}}</strong>
-                    <label *ngIf="editItem.id != item.id" class="d-block">{{item.enlace}} </label>
-                </div>
-                <div class="col-3 d-block my-2">
-                    <fa-icon [icon]="faPencil" class="float-right fa-button fa-lg" (click)="onEdit(item)" *ngIf="adminSesion && editItem.id != item.id"></fa-icon>
-                    <fa-icon [icon]="faTrash" class="float-right fa-button fa-lg" (click)="onDelete(item)" *ngIf="adminSesion && editItem.id != item.id"></fa-icon>
-                </div>
-                
-                <div class="col-9 my-1" >
-                    <input type="text" class="d-block form-control rounded" placeholder="nombre" [(ngModel)]="editItem.titulo" *ngIf="adminSesion && editItem.id == item.id">
-                    <input type="text" class="form-control d-block" placeholder="enlace" [(ngModel)]="editItem.enlace" *ngIf="adminSesion && editItem.id == item.id">
-                    <input type="text" class="form-control d-block" placeholder="logo" [(ngModel)]="editItem.img" *ngIf="adminSesion && editItem.id == item.id">
-                </div>
-                <div class="col-3 d-block my-2">
-                    <fa-icon [icon]="faFloppyDisk" class="float-right fa-button fa-lg" (click)="saveEdit()" *ngIf="adminSesion && editItem.id == item.id"></fa-icon>
-                    <fa-icon [icon]="faXmark" class="float-right fa-button fa-lg" (click)="setDefault()" *ngIf="adminSesion && editItem.id == item.id"></fa-icon>
-                    <div class="d-block bg-dark content-fill" *ngIf="adminSesion && editItem.id == item.id">
-                        <img [src]="editItem.img" class="img-fluid p-1">
+        <div class="mb-3">
+            <div class="my-3">
+                <div *ngFor="let item of redes">
+                    <div *ngIf="(itemID != item.id || opcion != 'edit')">
+                        <div class="row mb-2 border-bottom">
+                            <div class="col-3 bg-dark" *ngIf="!adminSesion">
+                                <a [href]="item.enlace" class="nav-link" target="_blank">
+                                    <img [src]="item.img" [alt]="item.titulo" [id]="item.title" class="icon img-fluid">
+                                  </a>
+                            </div>
+                            <div class="col-9">
+                                <h5 class="mb-0 text-primary d-block">{{item.titulo}}</h5>
+                                <p class="mb-1 text-muted d-block">{{item.enlace}}</p>
+                            </div>
+                            <div class="col-3" *ngIf="adminSesion">
+
+                                <fa-icon [icon]="faPencil" class=" pt-1 fa-button fa-lg"
+                                    (click)="onEdit(item) ;opcionIgualA('edit')" *ngIf="adminSesion"></fa-icon>
+                                <fa-icon [icon]="faTrash" class="pt-1 fa-button fa-lgt" (click)="onDelete(item)"
+                                    *ngIf="adminSesion"></fa-icon>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="opcion == 'edit' && itemID == item.id">
+                        <form (ngSubmit)="onEnviar($event)" [formGroup]="form">
+                            <div class="row border-bottom pb-2" *ngIf="adminSesion">
+                                <div class="col-9">
+                                    <label for="Titulo">Titulo</label><br>
+                                    <input type="text"
+                                        [ngClass]="{'is-invalid' : Titulo?.errors && Titulo?.touched, 'is-valid': !Titulo?.errors && Titulo?.touched}"
+                                        formControlName="titulo" class="form-control form-control-sm" placeholder="Titulo">
+                                    <div *ngIf="Titulo?.hasError && Titulo?.touched">
+                                        <p *ngIf="Titulo?.hasError('required')" class="text-danger">
+                                            Este campo es obligatorio
+                                        </p>
+                                        <p *ngIf="Titulo?.errors?.['maxlength']" class="text-danger">
+                                            Se ha superado el limite de caracteres
+                                        </p>
+                                    </div>
+
+                                    <label for="Enlace">Enlace</label><br>
+                                    <input type="text"
+                                        [ngClass]="{'is-invalid' : Enlace?.errors && Enlace?.touched, 'is-valid': !Enlace?.errors && Enlace?.touched}"
+                                        formControlName="enlace" class="form-control form-control-sm"
+                                        placeholder="Enlace">
+                                    <div *ngIf="Enlace?.hasError && Enlace?.touched">
+                                        <p *ngIf="Enlace?.hasError('required')" class="text-danger">
+                                            Este campo es obligatorio
+                                        </p>
+                                        <p *ngIf="Enlace?.errors?.['maxlength']" class="text-danger">
+                                            Se ha superado el limite de caracteres
+                                        </p>
+                                    </div>
+
+                                    <label for="Img">Logo</label><br>
+                                    <input type="text"
+                                        [ngClass]="{'is-invalid' : Img?.errors && Img?.touched, 'is-valid': !Img?.errors && Img?.touched}"
+                                        formControlName="img" class="form-control form-control-sm" placeholder="Logo">
+                                    <div *ngIf="Img?.hasError && Img?.touched">
+                                        <p *ngIf="Img?.hasError('required')" class="text-danger">
+                                            Este campo es obligatorio
+                                        </p>
+                                        <p *ngIf="Img?.errors?.['maxlength']" class="text-danger">
+                                            Se ha superado el limite de caracteres
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <button type="submit" class="btn btn-glass d-inline">
+                                        <fa-icon [icon]="faFloppyDisk" class=" pt-1 fa-button fa-lg"></fa-icon>
+                                    </button>
+
+                                    <fa-icon (click)="cancel()" [icon]="faXmark" class="pt-3 fa-button fa-lg"></fa-icon>
+
+                                    <div class="bg-dark">
+                                        <img [src]="form.value.img" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+            <div *ngIf="opcion == 'add'">
+                <form (ngSubmit)="onEnviar($event)" [formGroup]="form">
+                    <div class="row" *ngIf="adminSesion">
+                        <div class="col-9">
+                            <label for="Titulo">Titulo</label><br>
+                            <input type="text"
+                                [ngClass]="{'is-invalid' : Titulo?.errors && Titulo?.touched, 'is-valid': !Titulo?.errors && Titulo?.touched}"
+                                formControlName="titulo" class="form-control  form-control-sm" placeholder="Titulo">
+                            <div *ngIf="Titulo?.hasError && Titulo?.touched">
+                                <p *ngIf="Titulo?.hasError('required')" class="text-danger">
+                                    Este campo es obligatorio
+                                </p>
+                                <p *ngIf="Titulo?.errors?.['maxlength']" class="text-danger">
+                                    Se ha superado el limite de caracteres
+                                </p>
+                            </div>
 
+                            <label for="Enlace">Enlace</label><br>
+                            <input type="text"
+                                [ngClass]="{'is-invalid' : Enlace?.errors && Enlace?.touched, 'is-valid': !Enlace?.errors && Enlace?.touched}"
+                                formControlName="enlace" class="form-control  form-control-sm" placeholder="Enlace">
+                            <div *ngIf="Enlace?.hasError && Enlace?.touched">
+                                <p *ngIf="Enlace?.hasError('required')" class="text-danger">
+                                    Este campo es obligatorio
+                                </p>
+                                <p *ngIf="Enlace?.errors?.['maxlength']" class="text-danger">
+                                    Se ha superado el limite de caracteres
+                                </p>
+                            </div>
 
+                            <label for="Img">Logo</label><br>
+                            <input type="text"
+                                [ngClass]="{'is-invalid' : Img?.errors && Img?.touched, 'is-valid': !Img?.errors && Img?.touched}"
+                                formControlName="img" class="form-control form-control-sm" placeholder="Logo">
+                            <div *ngIf="Img?.hasError && Img?.touched">
+                                <p *ngIf="Img?.hasError('required')" class="text-danger">
+                                    Este campo es obligatorio
+                                </p>
+                                <p *ngIf="Img?.errors?.['maxlength']" class="text-danger">
+                                    Se ha superado el limite de caracteres
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <button type="submit" class="btn btn-glass d-inline">
+                                <fa-icon [icon]="faFloppyDisk" class=" pt-1 fa-button fa-lg"></fa-icon>
+                            </button>
 
-            <div class="row small lh-sm d-flex p-3" *ngIf="addMode == true && editMode == false">
-                <div class="col-9">
-                    <input type="text" class="d-block form-control rounded" placeholder="nombre" [(ngModel)]="editItem.titulo">
-                    <input type="text" class="form-control d-block" placeholder="enlace" [(ngModel)]="editItem.enlace">
-                    <input type="text" class="form-control d-block" placeholder="logo" [(ngModel)]="editItem.img">
-                </div>
-                <div class="col-3 d-block">
-                    <fa-icon [icon]="faFloppyDisk" class="float-right fa-button fa-lg" (click)="saveAdd()" *ngIf="adminSesion"></fa-icon>
-                    <fa-icon [icon]="faXmark" class="float-right fa-button fa-lg" (click)="modeNull()" *ngIf="adminSesion"></fa-icon>
-                    <div class="d-block bg-dark content-fill">
-                        <img [src]="editItem.img" class="img-fluid p-1">
+                            <fa-icon (click)="cancel()" [icon]="faXmark" class="pt-3 fa-button fa-lg"></fa-icon>
+                            <div class="bg-dark">
+                                <img [src]="form.value.img" class="img-fluid">
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
+        </div>
     </div>
 </ng-template>
