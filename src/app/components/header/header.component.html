@@ -42,9 +42,9 @@
             </div>
 
             <label for="User">Usuario</label><br>
-            <input type="text" [ngClass]="{'is-invalid' : NombreUsuario?.errors && NombreUsuario?.touched, 'is-valid': !NombreUsuario?.errors && !NombreUsuario?.touched}" formControlName="nombreUsuario" id="nombreUsuario" name="nombreUsuario" placeholder="Usuario" class="form-control" >
-            <div *ngIf="NombreUsuario?.hasError && NombreUsuario?.touched">
-              <p *ngIf="NombreUsuario?.hasError('required')" class="text-danger">
+            <input type="text" [ngClass]="{'is-invalid' : Username?.errors && Username?.touched, 'is-valid': !Username?.errors && !Username?.touched}" formControlName="username" id="username" name="username" placeholder="Usuario" class="form-control" >
+            <div *ngIf="Username?.hasError && Username?.touched">
+              <p *ngIf="Username?.hasError('required')" class="text-danger">
                 El nombre de usuario es requerido
               </p>
             </div><br>  

@@ -3,13 +3,13 @@ import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import { Subscription } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap'
-import { AuthService } from 'src/app/services/auth.service';
 import { LoginUsuario } from 'src/app/model/login-usuario';
 import { TokenService } from 'src/app/services/token.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { DefaultImagesService } from 'src/app/services/default-images.service';
+import { AutenticacionService } from 'src/app/services/autenticacion.service';
 
 @Component({
   selector: 'app-header',
@@ -39,13 +39,13 @@ export class HeaderComponent implements OnInit {
   constructor(
     private json: JsonService, private uiService:UiService, 
     private modalService: NgbModal , private tokenService:TokenService, 
-    private authService:AuthService, private router :Router,
+    private autenticacionService:AutenticacionService, private router :Router,
     private formBuilder: FormBuilder, private defaultimg : DefaultImagesService ) { 
     this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
 
     this.form = formBuilder.group(
       {
-        nombreUsuario:['',[Validators.required]],
+        username:['',[Validators.required]],
         password:['',[Validators.required]]
 
       })
@@ -74,28 +74,8 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  onLogin(): void{
-    this.loginUsuario = new LoginUsuario(this.form.value.nombreUsuario, this.form.value.password); 
-    this.authService.login(this.loginUsuario).subscribe(data => {
-        this.isLogged = true;
-        this.isLogginFail = false;
-        this.tokenService.setToken(data.token);
-        this.tokenService.setUsername(data.nombreUsuario);
-        this.tokenService.setAuthorities(data.authorities);
-        this.roles = data.authorities;
-        this.modalService.dismissAll('Sesion');
-        window.location.reload()
-      }, err =>{
-        this.isLogged = false;
-        this.isLogginFail = true;
-        this.errorMsj = err.error.message;
-
-      }
-    )
-  }
-
   onLogOut():void{
-    this.tokenService.logOut()
+    this.autenticacionService.logoutUser()
     window.location.reload()
   }
 
@@ -107,7 +87,7 @@ export class HeaderComponent implements OnInit {
 
   setDefault() {
     this.form.setValue({
-      nombreUsuario: '',
+      username: '',
       password: '',
     });
     this.form.markAsPristine();
@@ -117,15 +97,27 @@ export class HeaderComponent implements OnInit {
   onEnviar(event:Event){
     event.preventDefault;
     if(this.form.valid){
-      this.onLogin();
+      this.autenticacionService
+      .IniciarSesion(this.form.value)
+      .subscribe((data) => {
+        this.isLogged = true;
+        this.modalService.dismissAll('Sesion');
+        window.location.reload();
+      },
+      err =>{
+        this.isLogged = false;
+        this.isLogginFail = true;
+      }
+      )
+;
     }
     else{
       this.form.markAllAsTouched();
     }
   }
 
-  get NombreUsuario(){
-    return this.form.get('nombreUsuario')
+  get Username(){
+    return this.form.get('username')
   }
 
   get Password(){

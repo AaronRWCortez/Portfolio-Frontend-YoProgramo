@@ -1,31 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { TokenService } from './token.service';
+import { AutenticacionService } from './autenticacion.service';
+
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UiService {
-  private adminSesion!:boolean;
+  private adminSesion!:boolean | undefined;
   private subject = new Subject<any>();
   authList! : string[] 
 
-  constructor(private tokenService:TokenService) { }
+  constructor(private autenticacionService : AutenticacionService) { }
 
   isAdminLogged():void{
-    this.tokenService.getAuthorities()
-    this.authList = this.tokenService.getAuthorities()
-    for (var i of this.authList){
-      if( i == "ROLE_ADMIN"){
-        this.adminSesion = true;
-        this.subject.next(this.adminSesion);
-        break
-      }
-      else{
-        this.adminSesion = false;
-      }
-    }
+    this.adminSesion = this.autenticacionService.parcero
   }
 
   getAdminSesion(){

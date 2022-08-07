@@ -10,7 +10,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class JsonService {
-  apiUrl: string = 'http://localhost:8080';
+  apiUrl: string = 'https://back-v-2.herokuapp.com';
   PersonaID = 1
 
   constructor(private http : HttpClient) { }
