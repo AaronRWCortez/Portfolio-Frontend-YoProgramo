@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JsonService } from 'src/app/services/json.service';
 import { UiService } from 'src/app/services/ui.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { faXmark,faPencil,faPlusCircle,faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faXmark,faPencil,faPlusCircle,faTrash, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Proyecto } from 'src/app/model/proyecto';
@@ -32,6 +32,7 @@ export class ProyectosComponent implements OnInit {
   faTrash = faTrash
   faPencil = faPencil
   faPlus = faPlusCircle
+  faArrowRight = faArrowRightFromBracket
 
   form: FormGroup;
   opcion = '';

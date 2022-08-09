@@ -16,11 +16,13 @@
           </div>
           <div class="col-3 d-block p-4">
 
-            <fa-icon [icon]="faPencil" class=" pt-1 fa-button-light fa-lg title-light" (click)="openEdit(item,content); opcionIgualA('edit')"
+            <fa-icon [icon]="faPencil" class="my-3 fa-button-light fa-lg title-light" (click)="openEdit(item,content); opcionIgualA('edit')"
               *ngIf="adminSesion"></fa-icon>
-            <fa-icon [icon]="faTrash" class="pt-1 fa-button-light fa-lg title-light" (click)="onDelete(item)"
+            <fa-icon [icon]="faTrash" class="my-3 fa-button-light fa-lg title-light" (click)="onDelete(item)"
               *ngIf="adminSesion"></fa-icon>
-            <a [href]="item.enlace" class="btn btn-primary d-block my-1" target="_blank"> Ver Mas</a>
+          </div>
+          <div class="col-12 px-3">
+            <a [href]="item.enlace" class="btn btn-primary d-block my-1" target="_blank"><fa-icon [icon]="faArrowRight" class="pt-1 fa-button-light fa-lg title-light"></fa-icon></a>
           </div>
 
           <div class="text-center col-12">
