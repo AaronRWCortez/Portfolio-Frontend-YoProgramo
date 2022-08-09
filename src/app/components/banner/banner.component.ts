@@ -36,7 +36,6 @@ export class BannerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.adminSesion = this.uiService.getAdminSesion()
     this.dataLoad()
   }
 

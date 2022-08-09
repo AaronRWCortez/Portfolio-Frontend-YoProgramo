@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { JwtDto } from '../model/jwt-dto';
 import { LoginUsuario } from '../model/login-usuario';
 import { NuevoUsuario } from '../model/nuevo-usuario';
 
@@ -9,15 +8,17 @@ import { NuevoUsuario } from '../model/nuevo-usuario';
   providedIn: 'root'
 })
 export class AuthService {
-  authURL = 'http://localhost:8080/auth/'
+  apiUrl = 'https://backend-arwc.herokuapp.com'
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private http : HttpClient) { }
 
-  public nuevo(nuevoUsuario: NuevoUsuario): Observable<any>{
-    return this.httpClient.post<any>(this.authURL + 'nuevo', nuevoUsuario);
+
+  addItem(nuevoUsuario: NuevoUsuario): Observable<any>{
+    const url = `${this.apiUrl}/usuarios/crear`    
+    return this.http.post<any>(url, nuevoUsuario)
   }
 
-  public login(loginUsuario: LoginUsuario): Observable<JwtDto>{
-    return this.httpClient.post<JwtDto>(this.authURL + 'login', loginUsuario)
+  public login(loginUsuario: LoginUsuario): Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/usuarios/login`, loginUsuario)
   }
 }

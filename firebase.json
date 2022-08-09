@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/arw-cortez-tf",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

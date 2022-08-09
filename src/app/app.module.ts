@@ -17,7 +17,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EduComponent } from './components/edu/edu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
-import { InterceptorService } from './services/interceptor-service';
 import { InformacionContactoComponent } from './components/informacion-contacto/informacion-contacto.component';
 import { RedesListaComponent } from './components/redes-lista/redes-lista.component';
 
@@ -64,7 +63,7 @@ import { RedesListaComponent } from './components/redes-lista/redes-lista.compon
     NgbModule,
     ReactiveFormsModule
   ],
-  providers: [InterceptorService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

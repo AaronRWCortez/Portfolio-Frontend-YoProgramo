@@ -49,7 +49,6 @@ export class SkillsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.adminSesion = this.uiService.getAdminSesion()
     this.dataLoad()
   }
 

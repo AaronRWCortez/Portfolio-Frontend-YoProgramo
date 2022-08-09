@@ -50,7 +50,6 @@ export class ExpComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.adminSesion = this.uiService.getAdminSesion()
     this.dataLoad()
   }
 

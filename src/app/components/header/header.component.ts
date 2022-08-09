@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap'
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginUsuario } from 'src/app/model/login-usuario';
-import { TokenService } from 'src/app/services/token.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
@@ -38,28 +37,21 @@ export class HeaderComponent implements OnInit {
   errorMsj!: string;
   constructor(
     private json: JsonService, private uiService:UiService, 
-    private modalService: NgbModal , private tokenService:TokenService, 
+    private modalService: NgbModal, 
     private authService:AuthService, private router :Router,
     private formBuilder: FormBuilder, private defaultimg : DefaultImagesService ) { 
     this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
 
     this.form = formBuilder.group(
       {
-        nombreUsuario:['',[Validators.required]],
+        username:['',[Validators.required]],
         password:['',[Validators.required]]
 
       })
   }
 
   ngOnInit(): void {
-    this.uiService.isAdminLogged()
     this.dataLoad()
-
-    if(this.tokenService.getToken()){
-      this.isLogged = true;
-      this.isLogginFail = false;
-      this.roles = this.tokenService.getAuthorities();
-    }
   }
 
   dataLoad(){
@@ -75,28 +67,24 @@ export class HeaderComponent implements OnInit {
 
 
   onLogin(): void{
-    this.loginUsuario = new LoginUsuario(this.form.value.nombreUsuario, this.form.value.password); 
-    this.authService.login(this.loginUsuario).subscribe(data => {
+    this.loginUsuario = new LoginUsuario(this.form.value.username, this.form.value.password); 
+    this.authService.login(this.loginUsuario).subscribe(() => {
         this.isLogged = true;
         this.isLogginFail = false;
-        this.tokenService.setToken(data.token);
-        this.tokenService.setUsername(data.nombreUsuario);
-        this.tokenService.setAuthorities(data.authorities);
-        this.roles = data.authorities;
         this.modalService.dismissAll('Sesion');
-        window.location.reload()
+        this.uiService.adminSesionOn()
       }, err =>{
         this.isLogged = false;
         this.isLogginFail = true;
         this.errorMsj = err.error.message;
+        this.uiService.adminSesionOff()
 
       }
     )
   }
 
   onLogOut():void{
-    this.tokenService.logOut()
-    window.location.reload()
+    this.uiService.adminSesionOff()
   }
 
   restartLogData(){
@@ -124,8 +112,8 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  get NombreUsuario(){
-    return this.form.get('nombreUsuario')
+  get Username(){
+    return this.form.get('username')
   }
 
   get Password(){

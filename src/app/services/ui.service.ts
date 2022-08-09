@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { TokenService } from './token.service';
 
 
 @Injectable({
@@ -11,21 +10,16 @@ export class UiService {
   private subject = new Subject<any>();
   authList! : string[] 
 
-  constructor(private tokenService:TokenService) { }
+  constructor() { }
 
-  isAdminLogged():void{
-    this.tokenService.getAuthorities()
-    this.authList = this.tokenService.getAuthorities()
-    for (var i of this.authList){
-      if( i == "ROLE_ADMIN"){
-        this.adminSesion = true;
-        this.subject.next(this.adminSesion);
-        break
-      }
-      else{
-        this.adminSesion = false;
-      }
-    }
+  adminSesionOn(){
+    this.adminSesion = true;
+    this.subject.next(this.adminSesion)
+  }
+
+  adminSesionOff(){
+    this.adminSesion = false;
+    this.subject.next(this.adminSesion)
   }
 
   getAdminSesion(){
