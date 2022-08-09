@@ -8,6 +8,7 @@ import { Persona } from 'src/app/model/persona';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RedSocial } from 'src/app/model/redSocial';
 import { DefaultImagesService } from 'src/app/services/default-images.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class RedesListaComponent implements OnInit {
   faList = faList
 
   adminSesion :boolean = false;
+  subscription?: Subscription;
   url: string = 'redes-sociales';
   persona!: Persona;
 
@@ -49,6 +51,7 @@ export class RedesListaComponent implements OnInit {
   opcion = '';
 
   constructor(private json: JsonService, private uiService: UiService, private modalService: NgbModal, private formBuilder: FormBuilder, private defaultimg : DefaultImagesService) {
+    this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
     this.form = formBuilder.group(
       {
         titulo: ['', [Validators.required, Validators.maxLength(50)]],

@@ -95,7 +95,7 @@ export class HeaderComponent implements OnInit {
 
   setDefault() {
     this.form.setValue({
-      nombreUsuario: '',
+      username: '',
       password: '',
     });
     this.form.markAsPristine();

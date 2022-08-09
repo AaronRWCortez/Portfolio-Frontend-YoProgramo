@@ -37,7 +37,7 @@ export class AcercaDeComponent implements OnInit {
   loaded = false
 
   constructor(private json: JsonService, private uiService: UiService, private modalService: NgbModal, private formBuilder: FormBuilder, private defaultImg : DefaultImagesService) {
-
+    this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
     this.form = formBuilder.group(
       {
         nombre: ['', [Validators.required, Validators.maxLength(50)]],

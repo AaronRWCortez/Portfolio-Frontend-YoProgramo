@@ -7,6 +7,7 @@ import { isNgTemplate } from '@angular/compiler';
 import { Persona } from 'src/app/model/persona';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InfoContacto } from 'src/app/model/infoContacto';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class InformacionContactoComponent implements OnInit {
   faEyeSlash = faEyeSlash
 
   adminSesion :boolean = false;
+  subscription?: Subscription;
   url: string = 'infoContacto';
   persona!: Persona;
 
@@ -43,6 +45,7 @@ export class InformacionContactoComponent implements OnInit {
   opcion = '';
 
   constructor(private json: JsonService, private uiService: UiService, private modalService: NgbModal, private formBuilder: FormBuilder) {
+    this.subscription = this.uiService.onToggle().subscribe(v => this.adminSesion = v);
     this.form = formBuilder.group(
       {
         nombre: ['', [Validators.required, Validators.maxLength(50)]],
